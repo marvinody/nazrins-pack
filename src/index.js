@@ -6,9 +6,15 @@ import MyGame from './scenes/Game';
 
 const game = new Phaser.Game({
     type: Phaser.AUTO,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: true,
+        },
+    },
     parent: 'phaser-example',
-    width: 800,
-    height: 600,
+    width: 1600,
+    height: 900,
     scene: [
         FirstScene,
         MyGame,
