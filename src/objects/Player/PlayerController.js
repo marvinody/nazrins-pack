@@ -8,8 +8,7 @@ import MoveUpLeftState from "./states/MoveUpLeftState"
 import MoveDownRightState from "./states/MoveDownRightState"
 import MoveDownLeftState from "./states/MoveDownLeftState"
 
-export default class PlayerController
-{
+export default class PlayerController {
 	/** @type {{ [key: string]: { enter: () => void } }} */
 	states
 
@@ -19,33 +18,30 @@ export default class PlayerController
 	/**
 	 * @param {Phaser.Physics.Arcade.Sprite} player 
 	 */
-	constructor(player)
-	{
+	constructor(player) {
 		this.states = {
-      idle: new MoveIdleState(player),
-      moveLeft: new MoveLeftState(player),
-      moveRight: new MoveRightState(player),
-      moveDown: new MoveDownState(player),
-      moveUp: new MoveUpState(player),
-      moveUpRight: new MoveUpRightState(player),
-      moveUpLeft: new MoveUpLeftState(player),
-      moveDownRight: new MoveDownRightState(player),
-      moveDownLeft: new MoveDownLeftState(player),
-    }
+			idle: new MoveIdleState(player),
+			moveLeft: new MoveLeftState(player),
+			moveRight: new MoveRightState(player),
+			moveDown: new MoveDownState(player),
+			moveUp: new MoveUpState(player),
+			moveUpRight: new MoveUpRightState(player),
+			moveUpLeft: new MoveUpLeftState(player),
+			moveDownRight: new MoveDownRightState(player),
+			moveDownLeft: new MoveDownLeftState(player),
+		}
 	}
 
 	/**
 	 * 
 	 * @param {string} name 
 	 */
-	setState(name)
-	{
-    if (this.currentState === this.states[name])
-    {
-      return
-    }
-  
-    this.currentState = this.states[name]
-    this.currentState.enter()
+	setState(name) {
+		if (this.currentState === this.states[name]) {
+			return
+		}
+
+		this.currentState = this.states[name]
+		this.currentState.enter()
 	}
 }

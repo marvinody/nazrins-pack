@@ -1,4 +1,4 @@
-import PlayerController from "../scenes/PlayerController";
+import PlayerController from "./PlayerController";
 
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {

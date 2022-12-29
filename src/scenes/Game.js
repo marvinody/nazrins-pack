@@ -1,13 +1,12 @@
 import Phaser from 'phaser';
 
-import PlayerController from './PlayerController';
 import characterSheet from '../assets/characters.png'
 import config from '../config'
-import Player from '../objects/Player';
+import Player from '../objects/Player/Player';
 
 const splitUnitCircle = (n) => {
     const angles = [];
-    const increment = Math.PI * 2 / (n )
+    const increment = Math.PI * 2 / (n)
     for (let idx = 0; idx < n; idx++) {
         angles.push(increment * idx)
     }
@@ -86,7 +85,7 @@ class Bullet extends Phaser.Physics.Arcade.Sprite {
     preUpdate(time, delta) {
         super.preUpdate(time, delta);
 
-        if(!this.bounds.contains(this.x, this.y)) {
+        if (!this.bounds.contains(this.x, this.y)) {
             console.count('DEAD BULLET')
             this.setActive(false);
             this.setVisible(false);
@@ -112,7 +111,7 @@ class Bullets extends Phaser.Physics.Arcade.Group {
         let bullet = this.getFirstDead(false);
 
         if (bullet) {
-            bullet.fire(x, y,velX, velY);
+            bullet.fire(x, y, velX, velY);
         }
     }
 }
