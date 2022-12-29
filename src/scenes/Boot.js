@@ -3,7 +3,7 @@ import Phaser from 'phaser';
 import characterSheet from '../assets/characters.png'
 import bullet from '../assets/bullet7.png'
 
-export default class FirstScene extends Phaser.Scene {
+export default class Boot extends Phaser.Scene {
     constructor() {
         super('first-scene');
     }

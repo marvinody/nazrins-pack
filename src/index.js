@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 
-import FirstScene from './scenes/FirstScene'
+import Boot from './scenes/Boot'
 import MyGame from './scenes/Game';
 
 
@@ -16,7 +16,7 @@ const game = new Phaser.Game({
     width: 1600,
     height: 900,
     scene: [
-        FirstScene,
+        Boot,
         MyGame,
     ]
 });
