@@ -1,4 +1,4 @@
-import config from '../../config'
+import config from '../../../config'
 
 export default class MoveUpState {
 	/** @type {Phaser.Physics.Arcade.Sprite} */
