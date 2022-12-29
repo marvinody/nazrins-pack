@@ -10,5 +10,10 @@ export default {
       y: BASE_SPEED,
       diagonal: Math.sqrt((BASE_SPEED**2) / 2),
     },
+  },
+  weapons: {
+    bullet: {
+      amount: 3,
+    }
   }
 }

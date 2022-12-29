@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 
 import characterSheet from '../assets/characters.png'
+import bullet from '../assets/bullet7.png'
 
 export default class FirstScene extends Phaser.Scene {
     constructor() {
@@ -9,6 +10,7 @@ export default class FirstScene extends Phaser.Scene {
 
     preload() {
         this.load.spritesheet('characters', characterSheet, { frameWidth: 16, frameHeight: 16 })
+        this.load.image('bullet', bullet)
     }
 
     create() {
