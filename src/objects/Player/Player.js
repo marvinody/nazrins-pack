@@ -24,6 +24,34 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     });
 
     this.cursors = scene.input.keyboard.createCursorKeys();
+
+    scene.anims.create({
+      key: 'player.walk.down',
+      frames: scene.anims.generateFrameNumbers('characters', { frames: [0, 1, 2] }),
+      frameRate: 8,
+      repeat: -1,
+  })
+
+  scene.anims.create({
+      key: 'player.walk.left',
+      frames: scene.anims.generateFrameNumbers('characters', { frames: [12, 13, 14] }),
+      frameRate: 8,
+      repeat: -1,
+  })
+
+  scene.anims.create({
+      key: 'player.walk.right',
+      frames: scene.anims.generateFrameNumbers('characters', { frames: [24, 25, 26] }),
+      frameRate: 8,
+      repeat: -1,
+  })
+
+  scene.anims.create({
+      key: 'player.walk.up',
+      frames: scene.anims.generateFrameNumbers('characters', { frames: [36, 37, 38] }),
+      frameRate: 8,
+      repeat: -1,
+  })
   }
 
 
