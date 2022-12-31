@@ -7,13 +7,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   /** @param {Phaser.Scene} scene */
   constructor(scene) {
-    super(scene, 400, 300, 'characters', 1)
-    this.setScale(4);
+    super(scene, 100, 100, 'characters', 1)
     scene.physics.add.existing(this)
     scene.add.existing(this)
 
     this.playerController = new PlayerController(this)
     this.playerController.setState('idle')
+
+    this.setCollideWorldBounds(true);
 
     // initial state
     this.setData({

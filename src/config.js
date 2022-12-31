@@ -11,6 +11,11 @@ export default {
       diagonal: Math.sqrt((BASE_SPEED**2) / 2),
     },
   },
+  enemies: {
+    slime: {
+      speed: BASE_SPEED * 0.9,
+    }
+  },
   weapons: {
     bullet: {
       amount: 3,

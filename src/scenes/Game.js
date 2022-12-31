@@ -63,10 +63,10 @@ class SlimeEnemyGroup extends Phaser.Physics.Arcade.Group {
         this.createMultiple({
             frameQuantity: 10,
             key: 'characters',
-            setScale: {
-                x: 3,
-                y: 3,
-            },
+            // setScale: {
+            //     x: 3,
+            //     y: 3,
+            // },
             active: false,
             visible: false,
             classType: SlimeEnemy,
@@ -182,12 +182,16 @@ export default class MyGame extends Phaser.Scene {
     }
 
     addInterval(fn, ms) {
-        const intervalId = setInterval(fn, ms)
-        this.intervals.push(intervalId)
+        this.time.addEvent({
+            delay: ms,
+            callback: fn,
+            loop: true,
+        })
     }
 
     cleanup() {
         this.stopAllIntervals();
+        this.time.removeAllEvents();
     }
 
     stopAllIntervals() {
@@ -213,14 +217,31 @@ export default class MyGame extends Phaser.Scene {
     }
 
     create() {
+
+        this.world
+
+        // Create a new tilemap from the loaded data
+        const map = this.make.tilemap({ key: 'map' });
+
+        // Add the tileset image to the map
+        const tileset = map.addTilesetImage('basictiles_2', 'basictiles_2');
+
+        // Create the layers specified in the Tiled editor
+        const layer = map.createLayer('mainlayer', tileset, 0, 0);
+
+        this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+
         this.player = new Player(this);
+
+        this.cameras.main
+            .setZoom(3)
+            .setBounds(0, 0, map.widthInPixels, map.heightInPixels)
+            .startFollow(this.player)
 
         this.cameras.main.startFollow(this.player)
 
         this.bullets = new Bullets(this);
         this.slimes = new SlimeEnemyGroup(this);
-
-        this.slimes.spawn(100, 100)
 
         this.physics.add.collider(this.player, this.slimes, this.handlePlayerSlimeCollide, undefined, this)
         this.physics.add.overlap(this.bullets, this.slimes, this.handleBulletSlimeCollide, undefined, this)
@@ -237,16 +258,43 @@ export default class MyGame extends Phaser.Scene {
         }, 2000)
 
         this.addInterval(() => {
-            this.slimes.spawn(100, 100)
-        }, 3000)
+
+            this.slimes.spawn(Phaser.Math.Between(100, 500), Phaser.Math.Between(100, 500))
+        }, 3000);
+
+
+        this.game.events
+            .on(Phaser.Core.Events.BLUR, () => {
+                // Pause the game when the user switches to a different tab or window
+                console.log("PAUSING", this.game)
+                console.log(this.game.pause)
+                this.game?.pause();
+            })
+            .on(Phaser.Core.Events.FOCUS, () => {
+                // Resume the game when the user switches back to the game tab
+                console.log("FOCUSED", this.game)
+                this.game?.resume();
+            }).on(Phaser.Core.Events.RESUME, () => {
+                console.count('RESUMING')
+            })
 
         this.events.on('shutdown', this.cleanup, this);
-        this.slimes.runChildUpdate = true
     }
 
     update() {
         this.player.update();
 
-        
+
+
+        this.slimes.children.iterate
+        this.slimes.children.each(slime => {
+            if (!slime.active) {
+                return;
+            }
+            const angle = Phaser.Math.Angle.Between(slime.x, slime.y, this.player.x, this.player.y);
+
+            // Set the velocity of the enemy based on the calculated angle and the speed
+            slime.setVelocity(Math.cos(angle) * config.enemies.slime.speed, Math.sin(angle) * config.enemies.slime.speed);
+        })
     }
 }

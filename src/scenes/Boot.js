@@ -2,6 +2,8 @@ import Phaser from 'phaser';
 
 import characterSheet from '../assets/characters.png'
 import bullet from '../assets/bullet7.png'
+import map from '../assets/map.json'
+import basictile from '../assets/basictiles_2.png'
 
 export default class Boot extends Phaser.Scene {
     constructor() {
@@ -11,6 +13,9 @@ export default class Boot extends Phaser.Scene {
     preload() {
         this.load.spritesheet('characters', characterSheet, { frameWidth: 16, frameHeight: 16 })
         this.load.image('bullet', bullet)
+
+        this.load.tilemapTiledJSON('map', map);
+        this.load.image('basictiles_2', basictile)
     }
 
     create() {
