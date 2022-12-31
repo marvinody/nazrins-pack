@@ -63,10 +63,6 @@ class SlimeEnemyGroup extends Phaser.Physics.Arcade.Group {
         this.createMultiple({
             frameQuantity: 10,
             key: 'characters',
-            // setScale: {
-            //     x: 3,
-            //     y: 3,
-            // },
             active: false,
             visible: false,
             classType: SlimeEnemy,
@@ -250,10 +246,10 @@ export default class MyGame extends Phaser.Scene {
         const vectors = splitUnitCircle(config.weapons.bullet.amount).map(angle => ([
             Math.cos(angle), -Math.sin(angle)
         ]));
-
+        const bulletSpeed = config.weapons.bullet.speed
         this.addInterval(() => {
             vectors.forEach((vector) => {
-                this.bullets.fireBullet(this.player.x, this.player.y, vector[0] * 100, vector[1] * 100);
+                this.bullets.fireBullet(this.player.x, this.player.y, vector[0] * bulletSpeed, vector[1] * bulletSpeed);
             })
         }, 2000)
 

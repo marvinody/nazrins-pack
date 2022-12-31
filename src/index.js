@@ -12,6 +12,12 @@ const game = new Phaser.Game({
             debug: true,
         },
     },
+    render: {
+        // prevent tile bleeding
+        antialiasGL: false,
+        // prevent pixel art from becoming blurry when scaled
+        pixelArt: true
+    },
     parent: 'phaser-example',
     width: 1600,
     height: 900,

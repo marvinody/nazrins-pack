@@ -19,6 +19,7 @@ export default {
   weapons: {
     bullet: {
       amount: 3,
+      speed: BASE_SPEED*1.1,
     }
   }
 }
