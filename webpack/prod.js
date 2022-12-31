@@ -14,14 +14,15 @@ module.exports = merge(base, {
     maxAssetSize: 900000
   },
   optimization: {
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          output: {
-            comments: false
-          }
-        }
-      })
-    ]
+    // minimizer: [
+    //   new TerserPlugin({
+    //     terserOptions: {
+    //       ecma: 2020,
+    //       output: {
+    //         comments: false
+    //       }
+    //     }
+    //   })
+    // ]
   }
 });
