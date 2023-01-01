@@ -4,7 +4,10 @@ import PlayerController from "./PlayerController";
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
   /** @type {PlayerController} */
-  playerController // 👈 create a class property
+  playerController
+
+  /** @type {Number} */
+  health
 
   /** @param {Phaser.Scene} scene */
   constructor(scene) {
@@ -14,6 +17,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     this.playerController = new PlayerController(this, scene)
     this.playerController.setState('idle')
+
+    this.health = 100;
 
     this.setCollideWorldBounds(true);
 
