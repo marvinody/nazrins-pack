@@ -74,7 +74,7 @@ export default class MyGame extends Phaser.Scene {
         this.cameras.main.startFollow(this.player)
 
         this.bullets = new Bullets(this, this.player);
-        this.slimes = new SlimeEnemyGroup(this);
+        this.slimes = new SlimeEnemyGroup(this, this.player);
 
         this.physics.add.collider(
             this.player,
@@ -109,14 +109,6 @@ export default class MyGame extends Phaser.Scene {
     update() {
         this.player.update();
 
-        this.slimes.children.each(slime => {
-            if (!slime.active) {
-                return;
-            }
-            const angle = Phaser.Math.Angle.Between(slime.x, slime.y, this.player.x, this.player.y);
-
-            // Set the velocity of the enemy based on the calculated angle and the speed
-            slime.setVelocity(Math.cos(angle) * config.enemies.slime.speed, Math.sin(angle) * config.enemies.slime.speed);
-        })
+        this.slimes.update();
     }
 }
