@@ -201,7 +201,8 @@ export default class MyGame extends Phaser.Scene {
      * @param {SlimeEnemy} slime 
      * */
     handlePlayerSlimeCollide(player, slime) {
-        this.scene.restart();
+        player.hitBy(slime)
+        // this.scene.restart();
     }
 
     /** 

@@ -1,3 +1,4 @@
+import phaser from "phaser";
 import PlayerController from "./PlayerController";
 
 
@@ -11,7 +12,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     scene.physics.add.existing(this)
     scene.add.existing(this)
 
-    this.playerController = new PlayerController(this)
+    this.playerController = new PlayerController(this, scene)
     this.playerController.setState('idle')
 
     this.setCollideWorldBounds(true);
@@ -31,32 +32,46 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       frames: scene.anims.generateFrameNumbers('characters', { frames: [0, 1, 2] }),
       frameRate: 8,
       repeat: -1,
-  })
+    })
 
-  scene.anims.create({
+    scene.anims.create({
       key: 'player.walk.left',
       frames: scene.anims.generateFrameNumbers('characters', { frames: [12, 13, 14] }),
       frameRate: 8,
       repeat: -1,
-  })
+    })
 
-  scene.anims.create({
+    scene.anims.create({
       key: 'player.walk.right',
       frames: scene.anims.generateFrameNumbers('characters', { frames: [24, 25, 26] }),
       frameRate: 8,
       repeat: -1,
-  })
+    })
 
-  scene.anims.create({
+    scene.anims.create({
       key: 'player.walk.up',
       frames: scene.anims.generateFrameNumbers('characters', { frames: [36, 37, 38] }),
       frameRate: 8,
       repeat: -1,
-  })
+    })
+  }
+
+  /** @param {Phaser.Physics.Arcade.Sprite} enemy */
+  hitBy(enemy) {
+    const angle = Phaser.Math.Angle.BetweenPoints(enemy, this);
+    const vector = Phaser.Math.Vector2.DOWN.clone().setAngle(angle);
+
+    this.playerController.setState('thrust', vector, 100)
   }
 
 
   update() {
+    // we do this here to make the recoil uncontrollable
+    // the 'update' to remove this is in a timeout
+    if (this.playerController.currentState === this.playerController.states['thrust']) {
+      return;
+    }
+
     const down = this.cursors.down.isDown;
     const up = this.cursors.up.isDown;
     const left = this.cursors.left.isDown;

@@ -7,6 +7,8 @@ import MoveUpRightState from "./states/MoveUpRightState"
 import MoveUpLeftState from "./states/MoveUpLeftState"
 import MoveDownRightState from "./states/MoveDownRightState"
 import MoveDownLeftState from "./states/MoveDownLeftState"
+import ThrustedState from "./states/ThrustedState"
+import MyGame from "../../scenes/Game"
 
 export default class PlayerController {
 	/** @type {{ [key: string]: { enter: () => void } }} */
@@ -17,10 +19,12 @@ export default class PlayerController {
 
 	/**
 	 * @param {Phaser.Physics.Arcade.Sprite} player 
+	 * @param {MyGame} scene
 	 */
-	constructor(player) {
+	constructor(player, scene) {
 		this.states = {
 			idle: new MoveIdleState(player),
+			thrust: new ThrustedState(player, scene),
 			moveLeft: new MoveLeftState(player),
 			moveRight: new MoveRightState(player),
 			moveDown: new MoveDownState(player),
@@ -36,12 +40,12 @@ export default class PlayerController {
 	 * 
 	 * @param {string} name 
 	 */
-	setState(name) {
+	setState(name, ...args) {
 		if (this.currentState === this.states[name]) {
 			return
 		}
 
 		this.currentState = this.states[name]
-		this.currentState.enter()
+		this.currentState.enter(...args)
 	}
 }
