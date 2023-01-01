@@ -89,9 +89,7 @@ export class TrackingEnemy extends Enemy {
 
   /** @param {Phaser.Math.Vector2} target */
   setTarget(target) {
-    console.log("SETTING TARGET")
     this.target = target;
-    console.log({this: this.target, target})
   }
 
   track() {

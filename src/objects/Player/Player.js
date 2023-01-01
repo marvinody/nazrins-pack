@@ -1,5 +1,7 @@
 import phaser from "phaser";
 import PlayerController from "./PlayerController";
+import MyGame from '../../scenes/Game'
+
 
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
@@ -8,6 +10,18 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   /** @type {Number} */
   health
+
+  /** @type {Number} */
+  maxHealth
+
+  /** @type {Phaser.GameObjects.Container} */
+  healthContainer
+
+  /** @type {Phaser.GameObjects.Graphics} */
+  healthBar
+
+  /** @type {boolean} */
+  invulnerable = false;
 
   /** @param {Phaser.Scene} scene */
   constructor(scene) {
@@ -19,6 +33,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.playerController.setState('idle')
 
     this.health = 100;
+    this.maxHealth = 100;
+
+    this.healthBar = scene.add.graphics();
+    this.healthContainer = scene.add.container(0, 0, [this.healthBar]);
+
+
+    this.updateHealthBar();
 
     this.setCollideWorldBounds(true);
 
@@ -61,16 +82,60 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     })
   }
 
+  updateHealthBar() {
+    // Clear the health bar graphics
+    this.healthBar.clear();
+
+    // Calculate the current health percentage
+    const healthPercent = this.health / this.maxHealth;
+
+    // Draw the health bar
+    this.healthBar.fillStyle(0x00ff00, 1);
+    this.healthBar.fillRect(0, 0, healthPercent * 16, 5);
+  }
+
+  flash(color, duration) {
+    this.setTint(color);
+
+    this.scene.time.addEvent({
+      callback: () => this.setTint(0xffffff),
+      delay: duration,
+      loop: false,
+    })
+  }
+
+  setInvulnFor(duration) {
+    this.invulnerable = true;
+    this.scene.time.addEvent({
+      callback: () => this.invulnerable = false,
+      delay: duration,
+      loop: false,
+    })
+  }
+
   /** @param {Phaser.Physics.Arcade.Sprite} enemy */
   hitBy(enemy) {
+    if (this.invulnerable) {
+      return;
+    }
+
+    this.setInvulnFor(250);
+
     const angle = Phaser.Math.Angle.BetweenPoints(enemy, this);
     const vector = Phaser.Math.Vector2.DOWN.clone().setAngle(angle);
 
+    this.health -= 10;
+    this.updateHealthBar();
+
     this.playerController.setState('thrust', vector, 100)
+    this.flash(0xff0000, 100)
+
   }
 
 
   update() {
+    this.healthContainer.setPosition(this.x - 8, this.y + 8);
+
     // we do this here to make the recoil uncontrollable
     // the 'update' to remove this is in a timeout
     if (this.playerController.currentState === this.playerController.states['thrust']) {

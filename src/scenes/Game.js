@@ -40,7 +40,10 @@ export default class MyGame extends Phaser.Scene {
      * */
     handlePlayerSlimeCollide(player, slime) {
         player.hitBy(slime)
-        // this.scene.restart();
+
+        if (player.health <= 0) {
+            this.scene.restart();
+        }
     }
 
     /** 
@@ -67,7 +70,7 @@ export default class MyGame extends Phaser.Scene {
         this.player = new Player(this);
 
         this.cameras.main
-            .setZoom(3)
+            .setZoom(4)
             .setBounds(0, 0, map.widthInPixels, map.heightInPixels)
             .startFollow(this.player)
 
