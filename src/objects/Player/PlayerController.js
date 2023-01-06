@@ -45,6 +45,8 @@ export default class PlayerController {
 			return
 		}
 
+		console.log(`swapping state: ${name}`)
+
 		this.currentState = this.states[name]
 		this.currentState.enter(...args)
 	}

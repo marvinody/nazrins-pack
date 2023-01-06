@@ -5,11 +5,15 @@ import MyGame from './scenes/Game';
 
 
 const game = new Phaser.Game({
-    type: Phaser.AUTO,
+    type: Phaser.WEBGL,
+    scale: {
+        mode: Phaser.Scale.FIT
+    },
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,
+            // debug: true,
+            // fixedStep: true,
         },
     },
     render: {
@@ -19,10 +23,12 @@ const game = new Phaser.Game({
         pixelArt: true
     },
     parent: 'phaser-example',
-    width: 1600,
-    height: 900,
+    width: Math.min(window.innerWidth, 1920),
+    height: Math.min(Math.max( window.innerHeight, document.body.clientHeight ) - 82, 1080),
     scene: [
         Boot,
         MyGame,
     ]
 });
+
+

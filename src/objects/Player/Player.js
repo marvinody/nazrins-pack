@@ -25,7 +25,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   /** @param {Phaser.Scene} scene */
   constructor(scene) {
-    super(scene, 100, 100, 'characters', 1)
+    super(scene, 500, 300, 'characters', 1)
     scene.physics.add.existing(this)
     scene.add.existing(this)
 
@@ -36,20 +36,29 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.maxHealth = 100;
 
     this.healthBar = scene.add.graphics();
-    this.healthContainer = scene.add.container(0, 0, [this.healthBar]);
+    this.outline = scene.add.graphics();
 
+    this.healthContainer = scene.add.container(this.x, this.y, [this.healthBar, this.outline]);
+
+    this.outline.clear();
+    this.outline.lineStyle(1, 0x0000ff);
+    this.outline.strokeRect(-this.width / 2, -this.height / 2, this.width, this.height);
+
+    scene.cameras.main.ignore(this.healthBar)
+    // const healthBarCamera = scene.cameras.add();
+
+    // healthBarCamera.startFollow(this);
+
+    // // Set the camera's bounds to match the game's world bounds
+    // healthBarCamera.setBounds(0, 0, scene.map.widthInPixels, scene.map.heightInPixels);
+
+    // // Use the camera to render the health bar
+
+    // this.healthBar.draw(healthBarCamera);
 
     this.updateHealthBar();
 
     this.setCollideWorldBounds(true);
-
-    // initial state
-    this.setData({
-      goingUp: false,
-      goingDown: false,
-      goingLeft: false,
-      goingRight: false,
-    });
 
     this.cursors = scene.input.keyboard.createCursorKeys();
 
@@ -80,6 +89,15 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       frameRate: 8,
       repeat: -1,
     })
+
+
+    this.play('player.walk.right')
+    scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE).on('down', () => {
+      console.log('-'.repeat(10))
+      console.log(this.scene.cameras.main.roundPixels)
+      this.scene.cameras.main.setRoundPixels(!this.scene.cameras.main.roundPixels)
+      console.log('current:', this.scene.cameras.main.roundPixels)
+    })
   }
 
   updateHealthBar() {
@@ -90,8 +108,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     const healthPercent = this.health / this.maxHealth;
 
     // Draw the health bar
-    this.healthBar.fillStyle(0x00ff00, 1);
-    this.healthBar.fillRect(0, 0, healthPercent * 16, 5);
+    this.healthBar.fillStyle(0xdd0000, 1);
+    const MAX_WIDTH = 16;
+    this.healthBar.fillRect(-MAX_WIDTH / 2, 8, healthPercent * MAX_WIDTH, 5);
   }
 
   flash(color, duration) {
@@ -132,10 +151,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   }
 
+  preUpdate(time, delta) {
+
+  }
 
   update() {
-    this.healthContainer.setPosition(this.x - 8, this.y + 8);
-
     // we do this here to make the recoil uncontrollable
     // the 'update' to remove this is in a timeout
     if (this.playerController.currentState === this.playerController.states['thrust']) {
@@ -166,6 +186,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     } else {
       this.playerController.setState('idle')
     }
+    this.healthContainer.setPosition(this.x, this.y);
   }
 
 }

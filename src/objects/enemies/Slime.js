@@ -50,7 +50,7 @@ export class SlimeEnemyGroup extends EnemyGroup {
     scene.time.addEvent({
       delay: 3000,
       callback: () => {
-        this.spawn(Phaser.Math.Between(100, 500), Phaser.Math.Between(100, 500), player)
+        // this.spawn(Phaser.Math.Between(100, 500), Phaser.Math.Between(100, 500), player)
       },
       loop: true,
     })

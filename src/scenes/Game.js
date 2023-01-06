@@ -57,24 +57,34 @@ export default class MyGame extends Phaser.Scene {
     create() {
 
         // Create a new tilemap from the loaded data
-        const map = this.make.tilemap({ key: 'map' });
+        const map = this.make.tilemap({ key: 'map2' });
 
         // Add the tileset image to the map
         const tileset = map.addTilesetImage('basictiles_2', 'basictiles_2');
 
+
+
         // Create the layers specified in the Tiled editor
         const layer = map.createLayer('mainlayer', tileset, 0, 0);
+        const enemyspawn = map.createLayer('enemyspawn', tileset, 0, 0);
+
+
+
+        this.map = map;
 
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
         this.player = new Player(this);
 
-        this.cameras.main
-            .setZoom(4)
-            .setBounds(0, 0, map.widthInPixels, map.heightInPixels)
-            .startFollow(this.player)
 
-        this.cameras.main.startFollow(this.player)
+
+        this.cameras.main
+            .setZoom(2)
+            .setBounds(0, 0, map.widthInPixels, map.heightInPixels)
+            .startFollow(this.player, false, 0.9, 0.9)
+
+
+ 
 
         this.bullets = new Bullets(this, this.player);
         this.slimes = new SlimeEnemyGroup(this, this.player);
@@ -91,20 +101,21 @@ export default class MyGame extends Phaser.Scene {
             this.handleBulletSlimeCollide, undefined, this
         );
 
-        this.game.events
-            .on(Phaser.Core.Events.BLUR, () => {
-                // Pause the game when the user switches to a different tab or window
-                console.log("PAUSING", this.game)
-                console.log(this.game.pause)
-                this.game?.pause();
-            })
-            .on(Phaser.Core.Events.FOCUS, () => {
-                // Resume the game when the user switches back to the game tab
-                console.log("FOCUSED", this.game)
-                this.game?.resume();
-            }).on(Phaser.Core.Events.RESUME, () => {
-                console.count('RESUMING')
-            })
+        // TODO, fix this I guess?
+        // this.game.events
+        //     .on(Phaser.Core.Events.BLUR, () => {
+        //         // Pause the game when the user switches to a different tab or window
+        //         console.log("PAUSING", this.game)
+        //         console.log(this.game.pause)
+        //         this.game?.pause();
+        //     })
+        //     .on(Phaser.Core.Events.FOCUS, () => {
+        //         // Resume the game when the user switches back to the game tab
+        //         console.log("FOCUSED", this.game)
+        //         this.game?.resume();
+        //     }).on(Phaser.Core.Events.RESUME, () => {
+        //         console.count('RESUMING')
+        //     })
 
         this.events.on('shutdown', this.cleanup, this);
     }
