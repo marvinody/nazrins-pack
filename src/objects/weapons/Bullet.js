@@ -1,7 +1,7 @@
 import config from '../../config';
 import Player from '../Player/Player';
+import Phaser from 'phaser'
 import { splitUnitCircle } from './util'
-
 
 export class Bullet extends Phaser.Physics.Arcade.Sprite {
   /** @type {Phaser.Geom.Rectangle} */
@@ -21,6 +21,8 @@ export class Bullet extends Phaser.Physics.Arcade.Sprite {
     this.setVisible(true);
 
     this.setVelocity(velX, velY);
+
+    return this;
   }
 
   preUpdate(time, delta) {
@@ -53,12 +55,18 @@ export class Bullets extends Phaser.Physics.Arcade.Group {
     ]));
 
     const bulletSpeed = config.weapons.bullet.speed;
+  
+    
+    
 
     scene.time.addEvent({
       delay: 2000,
       callback: () => {
-        vectors.forEach((vector) => {
-          this.fireBullet(player.x, player.y, vector[0] * bulletSpeed, vector[1] * bulletSpeed);
+        vectors.forEach((vector, idx) => {
+          const bullet = this.fireBullet(player.x, player.y, vector[0] * bulletSpeed, vector[1] * bulletSpeed);
+          if(idx === 0) {
+            scene.cameras.main.startFollow(bullet)
+          }
         })
       },
       loop: true,
@@ -69,7 +77,7 @@ export class Bullets extends Phaser.Physics.Arcade.Group {
     let bullet = this.getFirstDead(false);
 
     if (bullet) {
-      bullet.fire(x, y, velX, velY);
+      return bullet.fire(x, y, velX, velY);
     }
   }
 }
