@@ -60,7 +60,7 @@ export default class MyGame extends Phaser.Scene {
         const map = this.make.tilemap({ key: 'map2' });
 
         // Add the tileset image to the map
-        const tileset = map.addTilesetImage('basictiles_2', 'basictiles_2');
+        const tileset = map.addTilesetImage('basictiles_2', 'basictiles_2_extruded', 16, 16, 1, 2);
 
 
 

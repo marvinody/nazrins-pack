@@ -44,18 +44,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.outline.lineStyle(1, 0x0000ff);
     this.outline.strokeRect(-this.width / 2, -this.height / 2, this.width, this.height);
 
-    scene.cameras.main.ignore(this.healthBar)
-    // const healthBarCamera = scene.cameras.add();
-
-    // healthBarCamera.startFollow(this);
-
-    // // Set the camera's bounds to match the game's world bounds
-    // healthBarCamera.setBounds(0, 0, scene.map.widthInPixels, scene.map.heightInPixels);
-
-    // // Use the camera to render the health bar
-
-    // this.healthBar.draw(healthBarCamera);
-
     this.updateHealthBar();
 
     this.setCollideWorldBounds(true);
