@@ -60,7 +60,7 @@ export default class MyGame extends Phaser.Scene {
         const map = this.make.tilemap({ key: 'map2' });
 
         // Add the tileset image to the map
-        const tileset = map.addTilesetImage('basictiles_2', 'basictiles_2');
+        const tileset = map.addTilesetImage('basictiles_2', 'basictiles_2_extruded', 16, 16, 1, 2);
 
 
 
@@ -82,9 +82,6 @@ export default class MyGame extends Phaser.Scene {
             .setZoom(2)
             .setBounds(0, 0, map.widthInPixels, map.heightInPixels)
             .startFollow(this.player, false, 0.9, 0.9)
-
-
- 
 
         this.bullets = new Bullets(this, this.player);
         this.slimes = new SlimeEnemyGroup(this, this.player);
