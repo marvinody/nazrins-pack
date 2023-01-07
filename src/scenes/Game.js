@@ -3,6 +3,7 @@ import Phaser from 'phaser';
 import characterSheet from '../assets/characters.png'
 import config from '../config'
 import Player from '../objects/Player/Player';
+import GameUI from '../objects/gameUI';
 import { Bullets } from '../objects/weapons/Bullet'
 import { SlimeEnemyGroup } from '../objects/enemies/Slime'
 
@@ -68,8 +69,6 @@ export default class MyGame extends Phaser.Scene {
         const layer = map.createLayer('mainlayer', tileset, 0, 0);
         const enemyspawn = map.createLayer('enemyspawn', tileset, 0, 0);
 
-
-
         this.map = map;
 
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -81,10 +80,12 @@ export default class MyGame extends Phaser.Scene {
         this.cameras.main
             .setZoom(2)
             .setBounds(0, 0, map.widthInPixels, map.heightInPixels)
-            .startFollow(this.player, false, 0.9, 0.9)
+            .startFollow(this.player, false, 1, 1,)
 
         this.bullets = new Bullets(this, this.player);
         this.slimes = new SlimeEnemyGroup(this, this.player);
+
+        this.ui = new GameUI(this)
 
         this.physics.add.collider(
             this.player,
