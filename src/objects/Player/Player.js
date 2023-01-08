@@ -1,7 +1,7 @@
 import phaser from "phaser";
 import PlayerController from "./PlayerController";
 import MyGame from '../../scenes/Game'
-
+import config from '../../config'
 
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
@@ -75,6 +75,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     })
   }
 
+  getCollectionCircle() {
+    const center = this.getCenter();
+    return new Phaser.Geom.Circle(center.x, center.y, config.player.collection.misc);
+  }
+
 
   flash(color, duration) {
     this.setTint(color);
@@ -112,6 +117,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.playerController.setState('thrust', vector, 100)
     this.flash(0xff0000, 100)
 
+  }
+
+  collectedGem(gem) {
+    gem.die();
   }
 
   preUpdate(time, delta) {

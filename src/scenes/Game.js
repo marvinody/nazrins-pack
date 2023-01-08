@@ -6,6 +6,7 @@ import Player from '../objects/Player/Player';
 import GameUI from '../objects/gameUI';
 import { Bullets } from '../objects/weapons/Bullet'
 import { SlimeEnemyGroup } from '../objects/enemies/Slime'
+import { ExpGem, ExpGroup } from '../objects/misc/Exp';
 
 export default class MyGame extends Phaser.Scene {
 
@@ -48,6 +49,14 @@ export default class MyGame extends Phaser.Scene {
     }
 
     /** 
+     * @param {Player} player 
+     * @param {ExpGem} gem 
+     * */
+    handlePlayerGemCollide(player, gem) {
+        player.collectedGem(gem)
+    }
+
+    /** 
      * @param {Bullets} bullet 
      * @param {SlimeEnemy} slime 
      * */
@@ -84,6 +93,7 @@ export default class MyGame extends Phaser.Scene {
 
         this.bullets = new Bullets(this, this.player);
         this.slimes = new SlimeEnemyGroup(this, this.player);
+        this.expGems = new ExpGroup(this, this.player);
 
         this.ui = new GameUI(this)
 
@@ -97,6 +107,12 @@ export default class MyGame extends Phaser.Scene {
             this.bullets,
             this.slimes,
             this.handleBulletSlimeCollide, undefined, this
+        );
+
+        this.physics.add.overlap(
+            this.expGems,
+            this.player,
+            this.handlePlayerGemCollide, undefined, this
         );
 
         // TODO, fix this I guess?
@@ -122,5 +138,7 @@ export default class MyGame extends Phaser.Scene {
         this.player.update();
 
         this.slimes.update();
+
+        this.expGems.update();
     }
 }

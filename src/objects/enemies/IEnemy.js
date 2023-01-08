@@ -24,7 +24,7 @@ export class EnemyGroup extends Phaser.Physics.Arcade.Group {
         .setBounds(this.bounds)
         .spawn(x, y)
 
-        return enemy;
+      return enemy;
     }
   }
 
@@ -80,7 +80,7 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
   }
 }
 
-export class TrackingEnemy extends Enemy {
+export class TrackingSprite extends Enemy {
   /** @type {Phaser.Math.Vector2} */
   target
 
@@ -92,15 +92,12 @@ export class TrackingEnemy extends Enemy {
     this.target = target;
   }
 
-  track() {
+  update() {
     if (!this.active) {
       return
     }
 
-    const angle = Phaser.Math.Angle.Between(this.x, this.y, this.target.x, this.target.y);
-
-    // Set the velocity of the enemy based on the calculated angle and the speed
-    this.setVelocity(Math.cos(angle) * this.speed, Math.sin(angle) * this.speed);
+    this.scene.physics.moveToObject(this, this.target, this.speed)
 
     return this;
   }
