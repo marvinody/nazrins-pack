@@ -51,6 +51,11 @@ export class ExpGem extends TrackingSprite {
     this.setScale(0.5)
   }
 
+  die() {
+    this.isFollowing = false;
+    super.die();
+  }
+
   /** @param {Phaser.Geom.Circle} collectionCircle */
   update(collectionCircle) {
     if (!this.active) {
