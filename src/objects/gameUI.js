@@ -15,21 +15,48 @@ export default class GameUI extends Phaser.GameObjects.Container {
 
     scene.add.existing(this)
 
+
+
     this.createHealthBar();
+    this.createExpLine();
     this.outline = this.createOutline();
 
     this.setPosition(258, 194);
   }
 
+  createExpLine() {
+    this.expText = new Phaser.GameObjects.Text(this.scene, 0, 360)
+    this.expBar = new Phaser.GameObjects.Graphics(this.scene);
+
+    this.expText.setFontSize(10)
+
+    this.add(this.expText);
+    this.add(this.expBar);
+    this.updateExpLine();
+  }
+
+  updateExpLine() {
+    this.expText.setText(`Level:${this.player.level}`)
+    this.expBar.clear();
+    const expPercent = this.player.currentExp / this.player.expNeededForLevel;
+
+    this.expBar.fillStyle(0x0000ff);
+    this.expBar.fillRect(0, 370, expPercent * 100, 5);
+  }
+
   createOutline() {
     const outline = new Phaser.GameObjects.Graphics(this.scene);
-    outline.lineStyle(2, 0x0000ff);
+    outline.lineStyle(1, 0x0000ff);
+    console.log({
+      height: this.scene.scale.height,
+      width: this.scene.scale.width,
+    })
     outline.strokeRect(0, 0, 508, 380);
     this.setScrollFactor(0);
 
     this.add(outline);
 
-    outline.setVisible(false);
+    outline.setVisible(true);
 
 
     return outline;
@@ -41,7 +68,7 @@ export default class GameUI extends Phaser.GameObjects.Container {
     this.add(this.healthBar)
 
     this.updateHealthBar();
-    
+
     return this.healthBar;
   }
 

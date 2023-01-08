@@ -2,6 +2,7 @@ import phaser from "phaser";
 import PlayerController from "./PlayerController";
 import MyGame from '../../scenes/Game'
 import config from '../../config'
+import { ExpGem } from "../misc/Exp";
 
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
@@ -22,6 +23,15 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   /** @type {boolean} */
   invulnerable = false;
+  
+  /** @type {number} */
+  level = 1;
+
+  /** @type {number} */
+  expNeededForLevel = 10;
+
+  /** @type {number} */
+  currentExp = 0;
 
   /** @param {Phaser.Scene} scene */
   constructor(scene) {
@@ -119,8 +129,20 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   }
 
+  /** @param {ExpGem} gem */
   collectedGem(gem) {
     gem.die();
+
+    // multipy exp increase here if needed
+    this.currentExp += gem.value;
+    if (this.currentExp >= this.expNeededForLevel) {
+      this.currentExp -= this.expNeededForLevel;
+      this.level += 1;
+    }
+
+    this.scene.ui.updateExpLine();
+
+
   }
 
   preUpdate(time, delta) {

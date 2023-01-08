@@ -15,7 +15,7 @@ export class ExpGroup extends EnemyGroup {
       key: 'power',
       active: false,
       visible: false,
-      classType: ExpGem,
+      classType: ExpGem,    
     });
 
   }
@@ -39,6 +39,7 @@ export class ExpGem extends TrackingSprite {
 
   speed = config.misc.exp.speed
   radius = config.misc.exp.radius
+  value = config.misc.exp.value
 
   isFollowing = false
 
@@ -49,10 +50,10 @@ export class ExpGem extends TrackingSprite {
     super.spawn(x, y);
     this.setTarget(this.scene.player)
     this.setScale(0.5)
+    this.isFollowing = false;
   }
 
   die() {
-    this.isFollowing = false;
     super.die();
   }
 

@@ -84,6 +84,9 @@ export class SlimeEnemy extends TrackingSprite {
   }
 
   die() {
+    if(!this.active) {
+      return;
+    }
     super.die();
     const center = this.getCenter();
     this.scene.expGems.spawn(center.x, center.y)

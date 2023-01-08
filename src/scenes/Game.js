@@ -3,7 +3,7 @@ import Phaser from 'phaser';
 import characterSheet from '../assets/characters.png'
 import config from '../config'
 import Player from '../objects/Player/Player';
-import GameUI from '../objects/gameUI';
+import GameUI from '../objects/GameUI';
 import { Bullets } from '../objects/weapons/Bullet'
 import { SlimeEnemyGroup } from '../objects/enemies/Slime'
 import { ExpGem, ExpGroup } from '../objects/misc/Exp';
@@ -83,7 +83,6 @@ export default class MyGame extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
         this.player = new Player(this);
-
 
 
         this.cameras.main

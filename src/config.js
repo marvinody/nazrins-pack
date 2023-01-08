@@ -22,6 +22,7 @@ export default {
   misc: {
     exp: {
       speed: BASE_SPEED * 0.9,
+      value: 1,
     }
   },
   weapons: {
