@@ -1,7 +1,8 @@
 import phaser from "phaser";
 import PlayerController from "./PlayerController";
 import MyGame from '../../scenes/Game'
-
+import config from '../../config'
+import { ExpGem } from "../misc/Exp";
 
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
@@ -22,45 +23,19 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   /** @type {boolean} */
   invulnerable = false;
+  
+  /** @type {number} */
+  level = 1;
+
+  /** @type {number} */
+  expNeededForLevel = 10;
+
+  /** @type {number} */
+  currentExp = 0;
 
   /** @param {Phaser.Scene} scene */
   constructor(scene) {
-    super(scene, 500, 300, 'characters', 1)
-    scene.physics.add.existing(this)
-    scene.add.existing(this)
-
-    this.playerController = new PlayerController(this, scene)
-    this.playerController.setState('idle')
-
-    this.health = 100;
-    this.maxHealth = 100;
-
-    this.healthBar = scene.add.graphics();
-    this.outline = scene.add.graphics();
-
-    this.healthContainer = scene.add.container(this.x, this.y, [this.healthBar, this.outline]);
-
-    this.outline.clear();
-    this.outline.lineStyle(1, 0x0000ff);
-    this.outline.strokeRect(-this.width / 2, -this.height / 2, this.width, this.height);
-
-    scene.cameras.main.ignore(this.healthBar)
-    // const healthBarCamera = scene.cameras.add();
-
-    // healthBarCamera.startFollow(this);
-
-    // // Set the camera's bounds to match the game's world bounds
-    // healthBarCamera.setBounds(0, 0, scene.map.widthInPixels, scene.map.heightInPixels);
-
-    // // Use the camera to render the health bar
-
-    // this.healthBar.draw(healthBarCamera);
-
-    this.updateHealthBar();
-
-    this.setCollideWorldBounds(true);
-
-    this.cursors = scene.input.keyboard.createCursorKeys();
+    super(scene, 24, 24, 'characters', 1)
 
     scene.anims.create({
       key: 'player.walk.down',
@@ -90,28 +65,31 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       repeat: -1,
     })
 
+    scene.physics.add.existing(this)
+    scene.add.existing(this)
 
-    this.play('player.walk.right')
+    this.playerController = new PlayerController(this, scene)
+    this.playerController.setState('idle')
+
+    this.health = 100;
+    this.maxHealth = 100;
+
+    this.setCollideWorldBounds(true);
+
+    this.cursors = scene.input.keyboard.createCursorKeys();
+
     scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE).on('down', () => {
       console.log('-'.repeat(10))
-      console.log(this.scene.cameras.main.roundPixels)
-      this.scene.cameras.main.setRoundPixels(!this.scene.cameras.main.roundPixels)
-      console.log('current:', this.scene.cameras.main.roundPixels)
+      console.log(this.healthBar)
+      console.log(this.scene.cameras.main)
     })
   }
 
-  updateHealthBar() {
-    // Clear the health bar graphics
-    this.healthBar.clear();
-
-    // Calculate the current health percentage
-    const healthPercent = this.health / this.maxHealth;
-
-    // Draw the health bar
-    this.healthBar.fillStyle(0xdd0000, 1);
-    const MAX_WIDTH = 16;
-    this.healthBar.fillRect(-MAX_WIDTH / 2, 8, healthPercent * MAX_WIDTH, 5);
+  getCollectionCircle() {
+    const center = this.getCenter();
+    return new Phaser.Geom.Circle(center.x, center.y, config.player.collection.misc);
   }
+
 
   flash(color, duration) {
     this.setTint(color);
@@ -144,15 +122,31 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     const vector = Phaser.Math.Vector2.DOWN.clone().setAngle(angle);
 
     this.health -= 10;
-    this.updateHealthBar();
+    this.scene.ui.updateHealthBar();
 
     this.playerController.setState('thrust', vector, 100)
     this.flash(0xff0000, 100)
 
   }
 
-  preUpdate(time, delta) {
+  /** @param {ExpGem} gem */
+  collectedGem(gem) {
+    gem.die();
 
+    // multipy exp increase here if needed
+    this.currentExp += gem.value;
+    if (this.currentExp >= this.expNeededForLevel) {
+      this.currentExp -= this.expNeededForLevel;
+      this.level += 1;
+    }
+
+    this.scene.ui.updateExpLine();
+
+
+  }
+
+  preUpdate(time, delta) {
+    super.preUpdate(time, delta);
   }
 
   update() {
@@ -186,7 +180,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     } else {
       this.playerController.setState('idle')
     }
-    this.healthContainer.setPosition(this.x, this.y);
+
   }
 
 }

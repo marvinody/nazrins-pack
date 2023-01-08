@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { Enemy, EnemyGroup, TrackingEnemy } from './IEnemy';
+import { Enemy, EnemyGroup, TrackingSprite } from './IEnemy';
 import Player from '../Player/Player';
 import config from '../../config';
 
@@ -48,9 +48,9 @@ export class SlimeEnemyGroup extends EnemyGroup {
     })
 
     scene.time.addEvent({
-      delay: 3000,
+      delay: 30,
       callback: () => {
-        // this.spawn(Phaser.Math.Between(100, 500), Phaser.Math.Between(100, 500), player)
+        this.spawn(Phaser.Math.Between(100, 500), Phaser.Math.Between(100, 500), player)
       },
       loop: true,
     })
@@ -59,29 +59,36 @@ export class SlimeEnemyGroup extends EnemyGroup {
   /** @param {Number} x */
   /** @param {Number} y */
   /** @param {Player} player */
-  spawn(x, y, player) {
-    super
-      .spawn(x, y)
-      ?.setTarget(player)
+  spawn(x, y) {
+    super.spawn(x, y)
   }
 
   update() {
     this.children.each(slime => {
-      slime.track();
+      slime.update();
     })
   }
 }
 
-export class SlimeEnemy extends TrackingEnemy {
+export class SlimeEnemy extends TrackingSprite {
 
   speed = config.enemies.slime.speed
 
   /** @param {Number} x */
   /** @param {Number} y */
-  /** @param {Player} player */
   /** @return {SlimeEnemy} */
-  spawn(x, y, player) {
-    super.spawn(x, y).setTarget(player);
+  spawn(x, y) {
+    super.spawn(x, y);
     this.anims.play('slime.walk.right')
+    this.setTarget(this.scene.player)
+  }
+
+  die() {
+    if(!this.active) {
+      return;
+    }
+    super.die();
+    const center = this.getCenter();
+    this.scene.expGems.spawn(center.x, center.y)
   }
 }

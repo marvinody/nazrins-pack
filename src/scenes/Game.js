@@ -3,8 +3,10 @@ import Phaser from 'phaser';
 import characterSheet from '../assets/characters.png'
 import config from '../config'
 import Player from '../objects/Player/Player';
+import GameUI from '../objects/GameUI';
 import { Bullets } from '../objects/weapons/Bullet'
 import { SlimeEnemyGroup } from '../objects/enemies/Slime'
+import { ExpGem, ExpGroup } from '../objects/misc/Exp';
 
 export default class MyGame extends Phaser.Scene {
 
@@ -47,6 +49,14 @@ export default class MyGame extends Phaser.Scene {
     }
 
     /** 
+     * @param {Player} player 
+     * @param {ExpGem} gem 
+     * */
+    handlePlayerGemCollide(player, gem) {
+        player.collectedGem(gem)
+    }
+
+    /** 
      * @param {Bullets} bullet 
      * @param {SlimeEnemy} slime 
      * */
@@ -60,15 +70,13 @@ export default class MyGame extends Phaser.Scene {
         const map = this.make.tilemap({ key: 'map2' });
 
         // Add the tileset image to the map
-        const tileset = map.addTilesetImage('basictiles_2', 'basictiles_2');
+        const tileset = map.addTilesetImage('basictiles_2', 'basictiles_2_extruded', 16, 16, 1, 2);
 
 
 
         // Create the layers specified in the Tiled editor
         const layer = map.createLayer('mainlayer', tileset, 0, 0);
         const enemyspawn = map.createLayer('enemyspawn', tileset, 0, 0);
-
-
 
         this.map = map;
 
@@ -77,17 +85,16 @@ export default class MyGame extends Phaser.Scene {
         this.player = new Player(this);
 
 
-
         this.cameras.main
             .setZoom(2)
             .setBounds(0, 0, map.widthInPixels, map.heightInPixels)
-            .startFollow(this.player, false, 0.9, 0.9)
-
-
- 
+            .startFollow(this.player, false, 1, 1,)
 
         this.bullets = new Bullets(this, this.player);
         this.slimes = new SlimeEnemyGroup(this, this.player);
+        this.expGems = new ExpGroup(this, this.player);
+
+        this.ui = new GameUI(this)
 
         this.physics.add.collider(
             this.player,
@@ -99,6 +106,12 @@ export default class MyGame extends Phaser.Scene {
             this.bullets,
             this.slimes,
             this.handleBulletSlimeCollide, undefined, this
+        );
+
+        this.physics.add.overlap(
+            this.expGems,
+            this.player,
+            this.handlePlayerGemCollide, undefined, this
         );
 
         // TODO, fix this I guess?
@@ -124,5 +137,7 @@ export default class MyGame extends Phaser.Scene {
         this.player.update();
 
         this.slimes.update();
+
+        this.expGems.update();
     }
 }

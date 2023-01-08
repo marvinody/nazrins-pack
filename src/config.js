@@ -10,10 +10,19 @@ export default {
       y: BASE_SPEED,
       diagonal: Math.sqrt((BASE_SPEED**2) / 2),
     },
+    collection: {
+      misc: 50
+    }
   },
   enemies: {
     slime: {
       speed: BASE_SPEED * 0.9,
+    }
+  },
+  misc: {
+    exp: {
+      speed: BASE_SPEED * 0.9,
+      value: 1,
     }
   },
   weapons: {
