@@ -122,7 +122,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     const vector = Phaser.Math.Vector2.DOWN.clone().setAngle(angle);
 
     this.health -= 10;
-    this.scene.ui.updateHealthBar();
 
     this.playerController.setState('thrust', vector, 100)
     this.flash(0xff0000, 100)
@@ -139,10 +138,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       this.currentExp -= this.expNeededForLevel;
       this.level += 1;
     }
-
-    this.scene.ui.updateExpLine();
-
-
   }
 
   preUpdate(time, delta) {

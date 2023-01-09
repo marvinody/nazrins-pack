@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 
 import Boot from './scenes/Boot'
 import MyGame from './scenes/Game';
+import GameUIScene from './scenes/GameUIScene';
 
 
 const game = new Phaser.Game({
@@ -29,6 +30,7 @@ const game = new Phaser.Game({
     scene: [
         Boot,
         MyGame,
+        GameUIScene,
     ]
 });
 

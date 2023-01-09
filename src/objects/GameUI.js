@@ -32,13 +32,13 @@ export default class GameUI extends Phaser.GameObjects.Container {
 
     this.add(this.expText);
     this.add(this.expBar);
-    this.updateExpLine();
+
   }
 
-  updateExpLine() {
-    this.expText.setText(`Level:${this.player.level}`)
+  updateExpLine(player) {
+    this.expText.setText(`Level:${player.level}`)
     this.expBar.clear();
-    const expPercent = this.player.currentExp / this.player.expNeededForLevel;
+    const expPercent = player.currentExp / player.expNeededForLevel;
 
     this.expBar.fillStyle(0x0000ff);
     this.expBar.fillRect(0, 370, expPercent * 100, 5);
@@ -67,15 +67,13 @@ export default class GameUI extends Phaser.GameObjects.Container {
     this.healthBar.setScrollFactor(0);
     this.add(this.healthBar)
 
-    this.updateHealthBar();
-
     return this.healthBar;
   }
 
-  updateHealthBar() {
+  updateHealthBar(player) {
     this.healthBar.clear();
     // Calculate the current health percentage
-    const healthPercent = this.player.health / this.player.maxHealth;
+    const healthPercent = player.health / player.maxHealth;
 
     // Draw the health bar
     this.healthBar.fillStyle(0xdd0000, 1);

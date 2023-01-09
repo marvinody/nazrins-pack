@@ -3,10 +3,11 @@ import Phaser from 'phaser';
 import characterSheet from '../assets/characters.png'
 import config from '../config'
 import Player from '../objects/Player/Player';
-import GameUI from '../objects/GameUI';
 import { Bullets } from '../objects/weapons/Bullet'
 import { SlimeEnemyGroup } from '../objects/enemies/Slime'
 import { ExpGem, ExpGroup } from '../objects/misc/Exp';
+import eventsCenter, { UPDATE_EXP, UPDATE_HEALTH } from './EventsCenter';
+
 
 export default class MyGame extends Phaser.Scene {
 
@@ -41,7 +42,8 @@ export default class MyGame extends Phaser.Scene {
      * @param {SlimeEnemy} slime 
      * */
     handlePlayerSlimeCollide(player, slime) {
-        player.hitBy(slime)
+        player.hitBy(slime);
+        eventsCenter.emit(UPDATE_HEALTH, player);
 
         if (player.health <= 0) {
             this.scene.restart();
@@ -53,7 +55,9 @@ export default class MyGame extends Phaser.Scene {
      * @param {ExpGem} gem 
      * */
     handlePlayerGemCollide(player, gem) {
-        player.collectedGem(gem)
+        player.collectedGem(gem);
+        eventsCenter.emit(UPDATE_EXP, player);
+
     }
 
     /** 
@@ -62,6 +66,10 @@ export default class MyGame extends Phaser.Scene {
      * */
     handleBulletSlimeCollide(bullet, slime) {
         slime.die();
+    }
+
+    init() {
+
     }
 
     create() {
@@ -84,7 +92,6 @@ export default class MyGame extends Phaser.Scene {
 
         this.player = new Player(this);
 
-
         this.cameras.main
             .setZoom(2)
             .setBounds(0, 0, map.widthInPixels, map.heightInPixels)
@@ -94,7 +101,6 @@ export default class MyGame extends Phaser.Scene {
         this.slimes = new SlimeEnemyGroup(this, this.player);
         this.expGems = new ExpGroup(this, this.player);
 
-        this.ui = new GameUI(this)
 
         this.physics.add.collider(
             this.player,
@@ -130,7 +136,14 @@ export default class MyGame extends Phaser.Scene {
         //         console.count('RESUMING')
         //     })
 
-        this.events.on('shutdown', this.cleanup, this);
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            this.cleanup();
+        })
+
+        this.scene.run('game-ui-scene', {
+            player: this.player
+        })
+
     }
 
     update() {
