@@ -9,7 +9,7 @@ const game = new Phaser.Game({
     type: Phaser.WEBGL,
     scale: {
         mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.Center.CENTER_BOTH,
+        autoCenter: Phaser.Scale.Center.CENTER_HORIZONTALLY,
 
     },
     physics: {
