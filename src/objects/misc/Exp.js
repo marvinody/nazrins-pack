@@ -45,7 +45,6 @@ export class ExpGem extends TrackingSprite {
 
   /** @param {Number} x */
   /** @param {Number} y */
-  /** @return {SlimeEnemy} */
   spawn(x, y) {
     super.spawn(x, y);
     this.setTarget(this.scene.player)

@@ -2,13 +2,14 @@ import Phaser from 'phaser';
 
 import Boot from './scenes/Boot'
 import MyGame from './scenes/Game';
+import GameUIScene from './scenes/GameUIScene';
 
 
 const game = new Phaser.Game({
     type: Phaser.WEBGL,
     scale: {
         mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.Center.CENTER_BOTH,
+        autoCenter: Phaser.Scale.Center.CENTER_HORIZONTALLY,
 
     },
     physics: {
@@ -29,6 +30,7 @@ const game = new Phaser.Game({
     scene: [
         Boot,
         MyGame,
+        GameUIScene,
     ]
 });
 
