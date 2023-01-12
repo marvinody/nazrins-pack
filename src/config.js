@@ -16,7 +16,7 @@ export default {
   },
   enemies: {
     slime: {
-      speed: BASE_SPEED * 0.9,
+      speed: BASE_SPEED * 0.8,
     }
   },
   misc: {

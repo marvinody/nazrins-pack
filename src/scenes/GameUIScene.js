@@ -26,6 +26,7 @@ export default class GameUIScene extends Phaser.Scene {
   create() {
     eventsCenter.on(UPDATE_HEALTH, this.ui.updateHealthBar, this.ui)
     eventsCenter.on(UPDATE_EXP, this.ui.updateExpLine, this.ui)
+    this.ui.updateWeaponStatus();
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       this.cleanup();
     })

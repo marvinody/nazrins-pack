@@ -108,6 +108,11 @@ export default class MyGame extends Phaser.Scene {
             this.handlePlayerSlimeCollide, undefined, this
         );
 
+        this.physics.add.collider(
+            this.slimes,
+        this.slimes
+        )
+
         this.physics.add.overlap(
             this.bullets,
             this.slimes,
