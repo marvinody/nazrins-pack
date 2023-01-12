@@ -83,6 +83,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       console.log(this.healthBar)
       console.log(this.scene.cameras.main)
     })
+
+    this.setSize(8, 8);
+    this.setOffset(4,4)
   }
 
   getCollectionCircle() {
@@ -136,8 +139,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.currentExp += gem.value;
     if (this.currentExp >= this.expNeededForLevel) {
       this.currentExp -= this.expNeededForLevel;
-      this.level += 1;
+      this.levelUp();
     }
+  }
+
+  levelUp() {
+    this.level += 1;
+    this.scene.bullets.levelUp();
   }
 
   preUpdate(time, delta) {

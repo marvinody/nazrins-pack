@@ -10,7 +10,7 @@ export default class GameUI extends Phaser.GameObjects.Container {
   /**  */
   VERTICAL_OFFSET = 50;
   HORIOZNTAL_OFFSET = 10;
-  
+
 
   /** @param {Phaser.Scene} scene */
   constructor(scene) {
@@ -24,6 +24,7 @@ export default class GameUI extends Phaser.GameObjects.Container {
 
     this.createHealthBar();
     this.createExpLine();
+    this.createWeaponStatus();
     this.outline = this.createOutline();
 
     this.setPosition(0, 0);
@@ -80,4 +81,51 @@ export default class GameUI extends Phaser.GameObjects.Container {
     this.healthBar.fillStyle(0xdd0000, 1);
     this.healthBar.fillRect(this.HORIOZNTAL_OFFSET, this.VERTICAL_OFFSET + 15 + 6, healthPercent * 100, 5);
   }
+
+  createWeaponStatus() {
+    this.weaponGraphics = new Phaser.GameObjects.Graphics(this.scene);
+    this.weaponSprites = [];
+
+    this.weaponArea = new Phaser.GameObjects.Container(this.scene, this.HORIOZNTAL_OFFSET, 30, [
+      this.weaponGraphics,
+    ]);
+    this.weaponArea.setScrollFactor(0);
+    this.add(this.weaponArea)
+    return this.weaponArea;
+  }
+
+  updateWeaponStatus(weapons) {
+    const MAX_WEAPONS = 6;
+    this.weaponGraphics.clear();
+    this.weaponGraphics.fillStyle(0xdd0000, 0.25);
+    const colors = [0xff0000, 0x00ff00, 0x0000ff];
+    const styles = {
+      MARGIN_FROM_CONTAINER: 1,
+      OUTLINE: 1,
+      MARGIN_BETWEEN: 1,
+      WIDTH: 16,
+    }
+    this.weaponGraphics.fillRect(0, 0, MAX_WEAPONS * (16 + 2 + 2), 18);
+    for (let i = 0; i < MAX_WEAPONS; i++) {
+      this.weaponGraphics.fillStyle(colors[i % colors.length])
+      this.weaponGraphics.lineStyle(styles.OUTLINE, colors[(i + 1) % colors.length])
+
+      const leftMargin = styles.MARGIN_FROM_CONTAINER
+        + i * (
+          2 * (styles.OUTLINE)
+          + styles.MARGIN_BETWEEN
+          + styles.WIDTH
+        );
+
+      const rightMargin = styles.MARGIN_FROM_CONTAINER;
+
+      this.weaponGraphics.strokeRect(
+        leftMargin,
+        rightMargin,
+        16,
+        16
+      )
+    }
+  }
+
 }
