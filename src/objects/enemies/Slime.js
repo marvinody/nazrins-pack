@@ -4,14 +4,16 @@ import Player from '../Player/Player';
 import config from '../../config';
 
 export class SlimeEnemyGroup extends EnemyGroup {
-  /** @param {Phaser.Scene} scene */
-  /** @param {Player} player */
+  /** 
+   * @param {Player} player 
+   * @param {Phaser.Scene} scene 
+   * */
   constructor(scene, player) {
     const bounds = Phaser.Geom.Rectangle.Inflate(Phaser.Geom.Rectangle.Clone(scene.physics.world.bounds), 100, 100);
     super(scene, bounds);
 
     this.createMultiple({
-      frameQuantity: 10,
+      frameQuantity: 30,
       frame: 48,
       key: 'characters',
       active: false,
@@ -48,19 +50,30 @@ export class SlimeEnemyGroup extends EnemyGroup {
     })
 
     scene.time.addEvent({
-      delay: 30,
+      delay: 10,
       callback: () => {
-        this.spawn(Phaser.Math.Between(100, 500), Phaser.Math.Between(100, 500), player)
+        const outerSpawn = Phaser.Geom.Rectangle.Inflate(Phaser.Geom.Rectangle.Clone(scene.cameras.main.worldView), 50, 50);
+        const innerSpawn = scene.cameras.main.worldView;
+        const spawnLocation = Phaser.Geom.Rectangle.RandomOutside(outerSpawn, innerSpawn, spawnLocation)
+        this.spawn(spawnLocation.x, spawnLocation.y, player)
       },
       loop: true,
     })
   }
 
+  getLesserSpawnCap() {
+    const level = this.scene.player.level;
+    return Math.min(level * 3, 30);
+  }
+
   /** @param {Number} x */
   /** @param {Number} y */
-  /** @param {Player} player */
   spawn(x, y) {
-    super.spawn(x, y)
+    const aliveCount = this.countActive(true);
+    const maxAllowedRightNow = this.getLesserSpawnCap();
+    if(aliveCount < maxAllowedRightNow) {
+      super.spawn(x, y)
+    }
   }
 
   update() {
@@ -84,7 +97,7 @@ export class SlimeEnemy extends TrackingSprite {
   }
 
   die() {
-    if(!this.active) {
+    if (!this.active) {
       return;
     }
     super.die();
