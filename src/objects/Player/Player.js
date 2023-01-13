@@ -35,7 +35,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   /** @param {Phaser.Scene} scene */
   constructor(scene) {
-    super(scene, 24, 24, 'characters', 1)
+    super(scene, 150, 150, 'characters', 1)
 
     scene.anims.create({
       key: 'player.walk.down',
@@ -80,8 +80,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE).on('down', () => {
       console.log('-'.repeat(10))
-      console.log(this.healthBar)
-      console.log(this.scene.cameras.main)
+      console.log(this.scene.cameras.main.worldView)
+      console.log(this.scene.cameras.main.getWorldPoint(0,0));
+      console.log(this.scene.cameras.main.getWorldPoint(100,100));
     })
 
     this.setSize(8, 8);
