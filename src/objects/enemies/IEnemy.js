@@ -3,15 +3,17 @@ import Player from '../Player/Player';
 
 export class EnemyGroup extends Phaser.Physics.Arcade.Group {
   /** @type {Phaser.Geom.Rectangle} */
-  bounds
+  globalBounds
 
   /** @param {Phaser.Scene} scene */
   /** @param {Phaser.Geom.Rectangle} bounds */
   constructor(scene, bounds) {
     super(scene.physics.world, scene);
     if (bounds) {
-      this.bounds = bounds;
+      this.globalBounds = bounds;
     }
+
+    this.runChildUpdate = true
   }
 
   /** @param {Number} x */
@@ -21,12 +23,17 @@ export class EnemyGroup extends Phaser.Physics.Arcade.Group {
 
     if (enemy) {
       enemy
-        .setBounds(this.bounds)
+        .setBounds(this.globalBounds)
         .spawn(x, y)
 
       return enemy;
     }
   }
+
+  preUpdate() {
+    console.log('group preupdate')
+  }
+
 
 }
 
@@ -64,17 +71,26 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     return this;
   }
 
-  die() {
+  // despawn will just remove the mob, no drops
+  despawn() {
+    if(!this.active) {
+      return;
+    }
     this.setActive(false);
     this.setVisible(false);
     this.disableBody();
+  }
+
+  // die should normally be used and overwritten if the monster does something on death
+  die() {
+    this.despawn();
   }
 
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
 
     if (!this.bounds.contains(this.x, this.y)) {
-      this.die();
+      this.despawn();
     }
 
   }
