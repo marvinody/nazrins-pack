@@ -12,8 +12,6 @@ export class EnemyGroup extends Phaser.Physics.Arcade.Group {
     if (bounds) {
       this.globalBounds = bounds;
     }
-
-    this.runChildUpdate = true
   }
 
   /** @param {Number} x */

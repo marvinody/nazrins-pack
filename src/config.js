@@ -23,6 +23,8 @@ export default {
     exp: {
       speed: BASE_SPEED * 0.9,
       value: 1,
+      maxRegular: 10,
+      maxSuper: 3,
     }
   },
   weapons: {

@@ -138,7 +138,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     // multipy exp increase here if needed
     this.currentExp += gem.value;
-    if (this.currentExp >= this.expNeededForLevel) {
+    this.handleExpGain();
+  }
+
+  handleExpGain() {
+    while (this.currentExp >= this.expNeededForLevel) {
       this.currentExp -= this.expNeededForLevel;
       this.levelUp();
     }

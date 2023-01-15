@@ -7,6 +7,7 @@ import { Bullets } from '../objects/weapons/Bullet'
 import { SlimeEnemyGroup } from '../objects/enemies/Slime'
 import { ExpGem, ExpGroup } from '../objects/misc/Exp';
 import eventsCenter, { UPDATE_EXP, UPDATE_HEALTH } from './EventsCenter';
+import { SuperExpGroup } from '../objects/misc/SuperExp';
 
 
 export default class MyGame extends Phaser.Scene {
@@ -50,6 +51,17 @@ export default class MyGame extends Phaser.Scene {
         }
     }
 
+    // called by something when it dies
+    spawnGem(x, y) {
+        if(this.expGems.canSpawn()) {
+            this.expGems.spawn(x, y);
+        } else {
+            // can't spawn a regular, do a super one
+            console.log('super spawn 1')
+            this.superExpGems.spawn(x, y)
+        }
+    }  
+
     /** 
      * @param {Player} player 
      * @param {ExpGem} gem 
@@ -57,7 +69,6 @@ export default class MyGame extends Phaser.Scene {
     handlePlayerGemCollide(player, gem) {
         player.collectedGem(gem);
         eventsCenter.emit(UPDATE_EXP, player);
-
     }
 
     /** 
@@ -100,6 +111,7 @@ export default class MyGame extends Phaser.Scene {
         this.bullets = new Bullets(this, this.player);
         this.slimes = new SlimeEnemyGroup(this, this.player);
         this.expGems = new ExpGroup(this, this.player);
+        this.superExpGems = new SuperExpGroup(this, this.player);
 
 
         this.physics.add.collider(
@@ -121,6 +133,12 @@ export default class MyGame extends Phaser.Scene {
 
         this.physics.add.overlap(
             this.expGems,
+            this.player,
+            this.handlePlayerGemCollide, undefined, this
+        );
+
+        this.physics.add.overlap(
+            this.superExpGems,
             this.player,
             this.handlePlayerGemCollide, undefined, this
         );
@@ -157,5 +175,6 @@ export default class MyGame extends Phaser.Scene {
         this.slimes.update();
 
         this.expGems.update();
+        this.superExpGems.update();
     }
 }

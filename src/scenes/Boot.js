@@ -3,6 +3,7 @@ import Phaser from 'phaser';
 import characterSheet from '../assets/characters.png'
 import bullet from '../assets/bullet7.png'
 import power from '../assets/unassembled/power.png'
+import fullpower from '../assets/unassembled/fullpower.png'
 import map from '../assets/map.json'
 import map2 from '../assets/map2.json'
 import basictile from '../assets/basictiles_2.png'
@@ -21,6 +22,7 @@ export default class Boot extends Phaser.Scene {
         this.load.tilemapTiledJSON('map2', map2);
         this.load.image('basictiles_2', basictile)
         this.load.image('power', power)
+        this.load.image('fullpower', fullpower)
         this.load.image('basictiles_2_extruded', basictileExtruded)
     }
 
