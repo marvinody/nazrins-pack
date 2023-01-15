@@ -77,7 +77,15 @@ export class SlimeEnemyGroup extends EnemyGroup {
   }
 
   update() {
+    const despawnBounds = Phaser.Geom.Rectangle.Inflate(Phaser.Geom.Rectangle.Clone(this.scene.cameras.main.worldView), 100, 100);
     this.children.each(slime => {
+      if(!slime.active) {
+        return;
+      }
+
+      if(!despawnBounds.contains(slime.x, slime.y)) {
+        return slime.despawn();
+      }
       slime.update();
     })
   }
@@ -102,6 +110,6 @@ export class SlimeEnemy extends TrackingSprite {
     }
     super.die();
     const center = this.getCenter();
-    this.scene.expGems.spawn(center.x, center.y)
+    this.scene.spawnGem(center.x, center.y);
   }
 }

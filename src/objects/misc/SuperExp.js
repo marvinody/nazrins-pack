@@ -3,7 +3,8 @@ import { Enemy, EnemyGroup, TrackingSprite } from '../enemies/IEnemy';
 import Player from '../Player/Player';
 import config from '../../config';
 
-export class ExpGroup extends EnemyGroup {
+
+export class SuperExpGroup extends EnemyGroup {
   /** @param {Phaser.Scene} scene */
   /** @param {Player} player */
   constructor(scene, player) {
@@ -11,24 +12,31 @@ export class ExpGroup extends EnemyGroup {
     super(scene, bounds);
 
     this.createMultiple({
-      frameQuantity: config.misc.exp.maxRegular,
-      key: 'power',
+      frameQuantity: config.misc.exp.maxSuper,
+      key: 'fullpower',
       active: false,
       visible: false,
-      classType: ExpGem,
+      classType: SuperExpGem,
     });
 
-  }
-
-  canSpawn() {
-    return this.getTotalUsed() < config.misc.exp.maxRegular
   }
 
   /** @param {Number} x */
   /** @param {Number} y */
   /** @param {Player} player */
   spawn(x, y) {
-    super.spawn(x, y)
+    if (this.canSpawn()) {
+      console.log('super spawn 2')
+      super.spawn(x, y)
+    } else {
+      // can't spawn more, just increase value of one
+      const gem = this.getFirstAlive();
+      gem.increaseValue();
+    }
+  }
+
+  canSpawn() {
+    return this.getTotalUsed() < config.misc.exp.maxSuper
   }
 
   update() {
@@ -39,7 +47,7 @@ export class ExpGroup extends EnemyGroup {
   }
 }
 
-export class ExpGem extends TrackingSprite {
+export class SuperExpGem extends TrackingSprite {
 
   speed = config.misc.exp.speed
   radius = config.misc.exp.radius
@@ -58,6 +66,10 @@ export class ExpGem extends TrackingSprite {
 
   die() {
     super.die();
+  }
+
+  increaseValue() {
+    this.value += config.misc.exp.value;
   }
 
   startFollow() {
