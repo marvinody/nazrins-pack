@@ -72,6 +72,10 @@ export class SuperExpGem extends TrackingSprite {
     this.value += config.misc.exp.value;
   }
 
+  startFollow() {
+    this.isFollowing = true;
+  }
+
   /** @param {Phaser.Geom.Circle} collectionCircle */
   update(collectionCircle) {
     if (!this.active) {
@@ -83,7 +87,7 @@ export class SuperExpGem extends TrackingSprite {
     }
 
     if (collectionCircle.contains(this.x, this.y)) {
-      this.isFollowing = true;
+      this.startFollow();
       return;
     }
   }

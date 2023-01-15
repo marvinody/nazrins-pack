@@ -3,7 +3,8 @@ import { Enemy, EnemyGroup, TrackingSprite } from '../enemies/IEnemy';
 import Player from '../Player/Player';
 import config from '../../config';
 
-export class ExpGroup extends EnemyGroup {
+
+export class ItemCollectGroup extends EnemyGroup {
   /** @param {Phaser.Scene} scene */
   /** @param {Player} player */
   constructor(scene, player) {
@@ -11,17 +12,15 @@ export class ExpGroup extends EnemyGroup {
     super(scene, bounds);
 
     this.createMultiple({
-      frameQuantity: config.misc.exp.maxRegular,
-      key: 'power',
+      frameQuantity: 5,
+      key: 'star',
       active: false,
       visible: false,
-      classType: ExpGem,
+      classType: ItemCollect,
     });
 
-  }
+    this.spawn(300,300)
 
-  canSpawn() {
-    return this.getTotalUsed() < config.misc.exp.maxRegular
   }
 
   /** @param {Number} x */
@@ -39,11 +38,9 @@ export class ExpGroup extends EnemyGroup {
   }
 }
 
-export class ExpGem extends TrackingSprite {
+export class ItemCollect extends TrackingSprite {
 
   speed = config.misc.exp.speed
-  radius = config.misc.exp.radius
-  value = config.misc.exp.value
 
   isFollowing = false
 
