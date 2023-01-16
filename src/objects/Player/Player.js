@@ -165,6 +165,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     super.preUpdate(time, delta);
   }
 
+  heal(amt) {
+    this.health += amt;
+    if(this.health > this.maxHealth) {
+      this.health = this.maxHealth;
+    }
+  }
+
   update() {
     // we do this here to make the recoil uncontrollable
     // the 'update' to remove this is in a timeout

@@ -50,7 +50,6 @@ export class ItemCollect extends TrackingSprite {
   spawn(x, y) {
     super.spawn(x, y);
     this.setTarget(this.scene.player)
-    this.setScale(0.5)
     this.isFollowing = false;
   }
 

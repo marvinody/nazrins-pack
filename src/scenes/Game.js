@@ -9,6 +9,7 @@ import { ExpGem, ExpGroup } from '../objects/misc/Exp';
 import eventsCenter, { UPDATE_EXP, UPDATE_HEALTH } from './EventsCenter';
 import { SuperExpGroup } from '../objects/misc/SuperExp';
 import { ItemCollect, ItemCollectGroup } from '../objects/misc/ItemCollect';
+import { CheeseGroup } from '../objects/misc/Cheese';
 
 
 export default class MyGame extends Phaser.Scene {
@@ -86,6 +87,10 @@ export default class MyGame extends Phaser.Scene {
         powerup.die();
     }
 
+    handlePlayerCheeseCollide(player, cheese) {
+        cheese.touchedByPlayer(player);
+        eventsCenter.emit(UPDATE_HEALTH, player);
+    }
 
     /** 
      * @param {Bullets} bullet 
@@ -128,6 +133,7 @@ export default class MyGame extends Phaser.Scene {
         this.expGems = new ExpGroup(this, this.player);
         this.superExpGems = new SuperExpGroup(this, this.player);
         this.itemCollects = new ItemCollectGroup(this, this.player);
+        this.cheeses = new CheeseGroup(this, this.player);
 
 
         this.physics.add.collider(
@@ -165,6 +171,12 @@ export default class MyGame extends Phaser.Scene {
             this.itemCollects,
             this.player,
             this.handlePlayerItemCollectCollide, undefined, this
+        );
+
+        this.physics.add.overlap(
+            this.cheeses,
+            this.player,
+            this.handlePlayerCheeseCollide, undefined, this
         );
 
         // TODO, fix this I guess?

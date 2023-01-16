@@ -1,4 +1,3 @@
-import Phaser from 'phaser';
 
 const BASE_SPEED = 100;
 
@@ -25,6 +24,9 @@ export default {
       value: 1,
       maxRegular: 10,
       maxSuper: 3,
+    },
+    cheese: {
+      heal: 33,
     }
   },
   weapons: {
