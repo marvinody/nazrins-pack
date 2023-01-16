@@ -13,7 +13,8 @@ export class ItemCollectGroup extends EnemyGroup {
 
     this.createMultiple({
       frameQuantity: 5,
-      key: 'star',
+      key: 'nazrinpack',
+      frame: 'misc/star.png',
       active: false,
       visible: false,
       classType: ItemCollect,

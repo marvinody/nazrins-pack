@@ -14,40 +14,27 @@ export class SlimeEnemyGroup extends EnemyGroup {
 
     this.createMultiple({
       frameQuantity: 30,
-      frame: 48,
-      key: 'characters',
+      frame: 'chars/chicken/walk/right/chicken-0.png',
+      key: 'nazrinpack',
       active: false,
       visible: false,
       classType: SlimeEnemy,
+      setXY: { // fix for now to prevent them all from piling up outside I guess
+        // had a weird visual bug on debug mode where several slimes were stuck on the outside borders
+        x: 200,
+        y: 200,
+      },
     });
 
     scene.anims.create({
-      key: 'slime.walk.down',
-      frames: scene.anims.generateFrameNumbers('characters', { frames: [48, 49, 50] }),
-      frameRate: 8,
-      repeat: -1,
-    })
-
-    scene.anims.create({
-      key: 'slime.walk.left',
-      frames: scene.anims.generateFrameNumbers('characters', { frames: [60, 61, 21] }),
-      frameRate: 8,
-      repeat: -1,
-    })
-
-    scene.anims.create({
       key: 'slime.walk.right',
-      frames: scene.anims.generateFrameNumbers('characters', { frames: [72, 73, 74] }),
-      frameRate: 8,
+      frames: scene.anims.generateFrameNames('nazrinpack', {
+        start: 0, end: 2, zeroPad: 0,
+        prefix: 'chars/chicken/walk/right/chicken-', suffix: '.png'
+      }), frameRate: 8,
       repeat: -1,
     })
 
-    scene.anims.create({
-      key: 'slime.walk.up',
-      frames: scene.anims.generateFrameNumbers('characters', { frames: [84, 85, 86] }),
-      frameRate: 8,
-      repeat: -1,
-    })
 
     scene.time.addEvent({
       delay: 10,
@@ -84,7 +71,7 @@ export class SlimeEnemyGroup extends EnemyGroup {
       }
 
       if(!despawnBounds.contains(slime.x, slime.y)) {
-        return slime.despawn();
+        // return slime.despawn();
       }
       slime.update();
     })
@@ -102,6 +89,7 @@ export class SlimeEnemy extends TrackingSprite {
     super.spawn(x, y);
     this.anims.play('slime.walk.right')
     this.setTarget(this.scene.player)
+    this.setSize(this.width / 2, this.height)
   }
 
   die() {

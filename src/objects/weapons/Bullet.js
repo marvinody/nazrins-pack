@@ -9,7 +9,7 @@ export class Bullet extends Phaser.Physics.Arcade.Sprite {
 
   /** @param {Phaser.Scene} scene */
   constructor(scene, x, y) {
-    super(scene, x, y, 'bullet');
+    super(scene, x, y, 'nazrinpack', 'misc/bullet.png');
     this.bounds = Phaser.Geom.Rectangle.Inflate(Phaser.Geom.Rectangle.Clone(scene.physics.world.bounds), 100, 100);
   }
 
@@ -49,7 +49,8 @@ export class Bullets extends Phaser.Physics.Arcade.Group {
 
     this.createMultiple({
       frameQuantity: 100,
-      key: 'bullet',
+      frame: 'misc/bullet.png',
+      key: 'nazrinpack',
       active: false,
       visible: false,
       classType: Bullet,

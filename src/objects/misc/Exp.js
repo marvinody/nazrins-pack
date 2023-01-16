@@ -12,7 +12,8 @@ export class ExpGroup extends EnemyGroup {
 
     this.createMultiple({
       frameQuantity: config.misc.exp.maxRegular,
-      key: 'power',
+      key: 'nazrinpack',
+      frame: 'misc/power.png',
       active: false,
       visible: false,
       classType: ExpGem,
