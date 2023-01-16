@@ -13,7 +13,8 @@ export class SuperExpGroup extends EnemyGroup {
 
     this.createMultiple({
       frameQuantity: config.misc.exp.maxSuper,
-      key: 'fullpower',
+      key: 'nazrinpack',
+      frame: 'misc/fullpower.png',
       active: false,
       visible: false,
       classType: SuperExpGem,

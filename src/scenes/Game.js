@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 
-import characterSheet from '../assets/characters.png'
+
 import config from '../config'
 import Player from '../objects/Player/Player';
 import { Bullets } from '../objects/weapons/Bullet'
@@ -9,6 +9,7 @@ import { ExpGem, ExpGroup } from '../objects/misc/Exp';
 import eventsCenter, { UPDATE_EXP, UPDATE_HEALTH } from './EventsCenter';
 import { SuperExpGroup } from '../objects/misc/SuperExp';
 import { ItemCollect, ItemCollectGroup } from '../objects/misc/ItemCollect';
+import { CheeseGroup } from '../objects/misc/Cheese';
 
 
 export default class MyGame extends Phaser.Scene {
@@ -86,6 +87,10 @@ export default class MyGame extends Phaser.Scene {
         powerup.die();
     }
 
+    handlePlayerCheeseCollide(player, cheese) {
+        cheese.touchedByPlayer(player);
+        eventsCenter.emit(UPDATE_HEALTH, player);
+    }
 
     /** 
      * @param {Bullets} bullet 
@@ -105,8 +110,7 @@ export default class MyGame extends Phaser.Scene {
         const map = this.make.tilemap({ key: 'map2' });
 
         // Add the tileset image to the map
-        const tileset = map.addTilesetImage('basictiles_2', 'basictiles_2_extruded', 16, 16, 1, 2);
-
+        const tileset = map.addTilesetImage('basictiles_2', 'basictiles_2', 16, 16, 1, 2);
 
 
         // Create the layers specified in the Tiled editor
@@ -129,17 +133,20 @@ export default class MyGame extends Phaser.Scene {
         this.expGems = new ExpGroup(this, this.player);
         this.superExpGems = new SuperExpGroup(this, this.player);
         this.itemCollects = new ItemCollectGroup(this, this.player);
+        this.cheeses = new CheeseGroup(this, this.player);
 
 
         this.physics.add.collider(
             this.player,
             this.slimes,
-            this.handlePlayerSlimeCollide, undefined, this
+            this.handlePlayerSlimeCollide, (player, slime) => {
+                return slime.active;
+            }, this
         );
 
         this.physics.add.collider(
             this.slimes,
-            this.slimes
+            this.slimes, () => {}, (a, b) => a.active && b.active
         )
 
         this.physics.add.overlap(
@@ -164,6 +171,12 @@ export default class MyGame extends Phaser.Scene {
             this.itemCollects,
             this.player,
             this.handlePlayerItemCollectCollide, undefined, this
+        );
+
+        this.physics.add.overlap(
+            this.cheeses,
+            this.player,
+            this.handlePlayerCheeseCollide, undefined, this
         );
 
         // TODO, fix this I guess?

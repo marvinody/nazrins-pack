@@ -27,12 +27,6 @@ export class EnemyGroup extends Phaser.Physics.Arcade.Group {
       return enemy;
     }
   }
-
-  preUpdate() {
-    console.log('group preupdate')
-  }
-
-
 }
 
 export class Enemy extends Phaser.Physics.Arcade.Sprite {
@@ -87,7 +81,7 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
 
-    if (!this.bounds.contains(this.x, this.y)) {
+    if (this.bounds && !this.bounds.contains(this.x, this.y)) {
       this.despawn();
     }
 

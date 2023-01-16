@@ -13,7 +13,8 @@ export class ItemCollectGroup extends EnemyGroup {
 
     this.createMultiple({
       frameQuantity: 5,
-      key: 'star',
+      key: 'nazrinpack',
+      frame: 'misc/star.png',
       active: false,
       visible: false,
       classType: ItemCollect,
@@ -49,7 +50,6 @@ export class ItemCollect extends TrackingSprite {
   spawn(x, y) {
     super.spawn(x, y);
     this.setTarget(this.scene.player)
-    this.setScale(0.5)
     this.isFollowing = false;
   }
 

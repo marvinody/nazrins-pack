@@ -23,7 +23,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   /** @type {boolean} */
   invulnerable = false;
-  
+
   /** @type {number} */
   level = 1;
 
@@ -35,33 +35,42 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   /** @param {Phaser.Scene} scene */
   constructor(scene) {
-    super(scene, 150, 150, 'characters', 1)
+    super(scene, 150, 150, 'nazrinpack', 'chars/naz/walk/down/naz-0.png')
 
     scene.anims.create({
       key: 'player.walk.down',
-      frames: scene.anims.generateFrameNumbers('characters', { frames: [0, 1, 2] }),
-      frameRate: 8,
+      frames: scene.anims.generateFrameNames('nazrinpack', {
+        start: 0, end: 2, zeroPad: 0,
+        prefix: 'chars/naz/walk/down/naz-', suffix: '.png'
+      }), frameRate: 8,
       repeat: -1,
     })
 
     scene.anims.create({
       key: 'player.walk.left',
-      frames: scene.anims.generateFrameNumbers('characters', { frames: [12, 13, 14] }),
+      frames: scene.anims.generateFrameNames('nazrinpack', {
+        start: 0, end: 2, zeroPad: 0,
+        prefix: 'chars/naz/walk/left/naz-', suffix: '.png'
+      }),
       frameRate: 8,
       repeat: -1,
     })
 
     scene.anims.create({
       key: 'player.walk.right',
-      frames: scene.anims.generateFrameNumbers('characters', { frames: [24, 25, 26] }),
-      frameRate: 8,
+      frames: scene.anims.generateFrameNames('nazrinpack', {
+        start: 0, end: 2, zeroPad: 0,
+        prefix: 'chars/naz/walk/right/naz-', suffix: '.png'
+      }), frameRate: 8,
       repeat: -1,
     })
 
     scene.anims.create({
       key: 'player.walk.up',
-      frames: scene.anims.generateFrameNumbers('characters', { frames: [36, 37, 38] }),
-      frameRate: 8,
+      frames: scene.anims.generateFrameNames('nazrinpack', {
+        start: 0, end: 2, zeroPad: 0,
+        prefix: 'chars/naz/walk/up/naz-', suffix: '.png'
+      }), frameRate: 8,
       repeat: -1,
     })
 
@@ -81,12 +90,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE).on('down', () => {
       console.log('-'.repeat(10))
       console.log(this.scene.cameras.main.worldView)
-      console.log(this.scene.cameras.main.getWorldPoint(0,0));
-      console.log(this.scene.cameras.main.getWorldPoint(100,100));
+      console.log(this.scene.cameras.main.getWorldPoint(0, 0));
+      console.log(this.scene.cameras.main.getWorldPoint(100, 100));
     })
 
-    this.setSize(8, 8);
-    this.setOffset(4,4)
+    this.setSize(this.width / 2, this.height / 2)
   }
 
   getCollectionCircle() {
@@ -155,6 +163,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
+  }
+
+  heal(amt) {
+    this.health += amt;
+    if(this.health > this.maxHealth) {
+      this.health = this.maxHealth;
+    }
   }
 
   update() {
