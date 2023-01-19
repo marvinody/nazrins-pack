@@ -59,7 +59,6 @@ export default class MyGame extends Phaser.Scene {
             this.expGems.spawn(x, y);
         } else {
             // can't spawn a regular, do a super one
-            console.log('super spawn 1')
             this.superExpGems.spawn(x, y)
         }
     }
