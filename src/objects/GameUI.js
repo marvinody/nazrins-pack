@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import Player from './Player/Player'
+import LevelUpUI from './Player/GameUI/LevelUp';
 
 
 export default class GameUI extends Phaser.GameObjects.Container {
@@ -20,14 +21,18 @@ export default class GameUI extends Phaser.GameObjects.Container {
 
     scene.add.existing(this)
 
-
-
     this.createHealthBar();
     this.createExpLine();
     this.createWeaponStatus();
     this.outline = this.createOutline();
+    this.levelUpUI = new LevelUpUI(scene);
 
     this.setPosition(0, 0);
+
+  }
+
+  showLevelUp(choices) {
+    this.levelUpUI.show(choices);
   }
 
   createExpLine() {
@@ -44,7 +49,7 @@ export default class GameUI extends Phaser.GameObjects.Container {
   updateExpLine(player) {
     this.expText.setText(`Level:${player.level}`)
     this.expBar.clear();
-    const expPercent = player.currentExp / player.expNeededForLevel;
+    const expPercent = Math.min(player.currentExp / player.expNeededForLevel, 1);
 
     this.expBar.fillStyle(0x0000ff);
     this.expBar.fillRect(this.HORIOZNTAL_OFFSET, this.VERTICAL_OFFSET + 10 + 6, expPercent * 100, 5);

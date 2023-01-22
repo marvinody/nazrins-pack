@@ -62,6 +62,8 @@ export default class MyGame extends Phaser.Scene {
             this.superExpGems.spawn(x, y)
         }
     }
+    
+
 
     /** 
      * @param {Player} player 
@@ -69,7 +71,6 @@ export default class MyGame extends Phaser.Scene {
      * */
     handlePlayerGemCollide(player, gem) {
         player.collectedGem(gem);
-        eventsCenter.emit(UPDATE_EXP, player);
     }
 
     /** 

@@ -71,8 +71,7 @@ export class Bullets extends Phaser.Physics.Arcade.Group {
       },
       loop: true,
     })
-
-
+    
   }
 
   levelUp() {

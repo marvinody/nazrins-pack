@@ -3,7 +3,7 @@ import Phaser from 'phaser';
 import Boot from './scenes/Boot'
 import MyGame from './scenes/Game';
 import GameUIScene from './scenes/GameUIScene';
-
+import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 
 const game = new Phaser.Game({
     type: Phaser.WEBGL,
@@ -11,6 +11,13 @@ const game = new Phaser.Game({
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.Center.CENTER_HORIZONTALLY,
 
+    },
+    plugins: {
+        scene: [{
+            key: 'rexUI',
+            plugin: RexUIPlugin,
+            mapping: 'rexUI'
+        }],
     },
     physics: {
         default: 'arcade',
