@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 
-import map2 from '../assets/map2.json'
+import map2 from '../assets/map.json'
 import basictileExtruded from '../assets/spritesheets/floortiles/basictiles_2_extruded.png'
 import atlassprites from '../assets/atlas.png'
 import atlasdata from '../assets/atlas.json'
@@ -17,7 +17,7 @@ export default class Boot extends Phaser.Scene {
             textureURL: atlassprites
         });
 
-        this.load.tilemapTiledJSON('map2', map2);
+        this.load.tilemapTiledJSON('map', map2);
         this.load.image('basictiles_2', basictileExtruded)
     }
 

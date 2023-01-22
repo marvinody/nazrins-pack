@@ -4,11 +4,36 @@
 			"image": "atlas.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 62,
-				"h": 191
+				"w": 59,
+				"h": 219
 			},
 			"scale": 1,
 			"frames": [
+				{
+					"filename": "misc/gun.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 34,
+						"h": 22
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 34,
+						"h": 22
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 34,
+						"h": 22
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
 				{
 					"filename": "chars/naz/walk/left/naz-1.png",
 					"rotated": false,
@@ -24,7 +49,7 @@
 						"h": 26
 					},
 					"frame": {
-						"x": 1,
+						"x": 37,
 						"y": 1,
 						"w": 19,
 						"h": 26
@@ -49,8 +74,108 @@
 						"h": 26
 					},
 					"frame": {
+						"x": 1,
+						"y": 25,
+						"w": 19,
+						"h": 26
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "chars/chicken/walk/down/chicken-0.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 2,
+						"w": 12,
+						"h": 14
+					},
+					"frame": {
 						"x": 22,
-						"y": 1,
+						"y": 25,
+						"w": 12,
+						"h": 14
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "chars/naz/walk/right/naz-1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 5,
+						"w": 19,
+						"h": 26
+					},
+					"frame": {
+						"x": 36,
+						"y": 29,
+						"w": 19,
+						"h": 26
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "chars/chicken/walk/up/chicken-0.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 10,
+						"y": 2,
+						"w": 12,
+						"h": 14
+					},
+					"frame": {
+						"x": 22,
+						"y": 41,
+						"w": 12,
+						"h": 14
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "chars/naz/walk/right/naz-2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 5,
+						"w": 19,
+						"h": 26
+					},
+					"frame": {
+						"x": 1,
+						"y": 53,
 						"w": 19,
 						"h": 26
 					},
@@ -74,8 +199,8 @@
 						"h": 27
 					},
 					"frame": {
-						"x": 43,
-						"y": 1,
+						"x": 22,
+						"y": 57,
 						"w": 18,
 						"h": 27
 					},
@@ -85,24 +210,24 @@
 					}
 				},
 				{
-					"filename": "chars/naz/walk/right/naz-1.png",
+					"filename": "misc/fullpower.png",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
-						"w": 32,
-						"h": 32
+						"w": 16,
+						"h": 16
 					},
 					"spriteSourceSize": {
-						"x": 6,
-						"y": 5,
-						"w": 19,
-						"h": 26
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
 					},
 					"frame": {
-						"x": 1,
-						"y": 29,
-						"w": 19,
-						"h": 26
+						"x": 42,
+						"y": 57,
+						"w": 16,
+						"h": 16
 					},
 					"anchor": {
 						"x": 0.5,
@@ -110,24 +235,24 @@
 					}
 				},
 				{
-					"filename": "chars/naz/walk/right/naz-2.png",
+					"filename": "misc/star.png",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
-						"w": 32,
-						"h": 32
+						"w": 16,
+						"h": 16
 					},
 					"spriteSourceSize": {
-						"x": 6,
-						"y": 5,
-						"w": 19,
-						"h": 26
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
 					},
 					"frame": {
-						"x": 22,
-						"y": 29,
-						"w": 19,
-						"h": 26
+						"x": 42,
+						"y": 75,
+						"w": 16,
+						"h": 16
 					},
 					"anchor": {
 						"x": 0.5,
@@ -149,8 +274,8 @@
 						"h": 27
 					},
 					"frame": {
-						"x": 43,
-						"y": 30,
+						"x": 1,
+						"y": 81,
 						"w": 18,
 						"h": 27
 					},
@@ -174,8 +299,8 @@
 						"h": 25
 					},
 					"frame": {
-						"x": 1,
-						"y": 57,
+						"x": 21,
+						"y": 86,
 						"w": 18,
 						"h": 25
 					},
@@ -199,10 +324,60 @@
 						"h": 25
 					},
 					"frame": {
-						"x": 21,
-						"y": 57,
+						"x": 1,
+						"y": 110,
 						"w": 18,
 						"h": 25
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "chars/chicken/walk/left/chicken-0.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 7,
+						"y": 1,
+						"w": 17,
+						"h": 15
+					},
+					"frame": {
+						"x": 41,
+						"y": 93,
+						"w": 17,
+						"h": 15
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "chars/chicken/walk/right/chicken-0.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 1,
+						"w": 17,
+						"h": 15
+					},
+					"frame": {
+						"x": 41,
+						"y": 110,
+						"w": 17,
+						"h": 15
 					},
 					"anchor": {
 						"x": 0.5,
@@ -224,8 +399,8 @@
 						"h": 25
 					},
 					"frame": {
-						"x": 41,
-						"y": 59,
+						"x": 21,
+						"y": 113,
 						"w": 18,
 						"h": 25
 					},
@@ -250,9 +425,34 @@
 					},
 					"frame": {
 						"x": 1,
-						"y": 84,
+						"y": 137,
 						"w": 18,
 						"h": 25
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "misc/cheese.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 17,
+						"h": 15
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 17,
+						"h": 15
+					},
+					"frame": {
+						"x": 41,
+						"y": 127,
+						"w": 17,
+						"h": 15
 					},
 					"anchor": {
 						"x": 0.5,
@@ -275,7 +475,7 @@
 					},
 					"frame": {
 						"x": 21,
-						"y": 84,
+						"y": 140,
 						"w": 18,
 						"h": 25
 					},
@@ -299,335 +499,10 @@
 						"h": 25
 					},
 					"frame": {
-						"x": 41,
-						"y": 86,
+						"x": 1,
+						"y": 164,
 						"w": 18,
 						"h": 25
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "chars/chicken/walk/left/chicken-1.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 32,
-						"h": 16
-					},
-					"spriteSourceSize": {
-						"x": 6,
-						"y": 2,
-						"w": 18,
-						"h": 14
-					},
-					"frame": {
-						"x": 1,
-						"y": 111,
-						"w": 18,
-						"h": 14
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "chars/chicken/walk/left/chicken-2.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 32,
-						"h": 16
-					},
-					"spriteSourceSize": {
-						"x": 6,
-						"y": 2,
-						"w": 18,
-						"h": 14
-					},
-					"frame": {
-						"x": 21,
-						"y": 111,
-						"w": 18,
-						"h": 14
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "chars/chicken/walk/right/chicken-1.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 32,
-						"h": 16
-					},
-					"spriteSourceSize": {
-						"x": 8,
-						"y": 2,
-						"w": 18,
-						"h": 14
-					},
-					"frame": {
-						"x": 41,
-						"y": 113,
-						"w": 18,
-						"h": 14
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "chars/chicken/walk/right/chicken-2.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 32,
-						"h": 16
-					},
-					"spriteSourceSize": {
-						"x": 8,
-						"y": 2,
-						"w": 18,
-						"h": 14
-					},
-					"frame": {
-						"x": 1,
-						"y": 127,
-						"w": 18,
-						"h": 14
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "chars/chicken/walk/left/chicken-0.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 32,
-						"h": 16
-					},
-					"spriteSourceSize": {
-						"x": 7,
-						"y": 1,
-						"w": 17,
-						"h": 15
-					},
-					"frame": {
-						"x": 21,
-						"y": 127,
-						"w": 17,
-						"h": 15
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "chars/chicken/walk/right/chicken-0.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 32,
-						"h": 16
-					},
-					"spriteSourceSize": {
-						"x": 8,
-						"y": 1,
-						"w": 17,
-						"h": 15
-					},
-					"frame": {
-						"x": 1,
-						"y": 143,
-						"w": 17,
-						"h": 15
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "misc/cheese.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 17,
-						"h": 15
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 17,
-						"h": 15
-					},
-					"frame": {
-						"x": 40,
-						"y": 129,
-						"w": 17,
-						"h": 15
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "misc/fullpower.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 16,
-						"h": 16
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 16,
-						"h": 16
-					},
-					"frame": {
-						"x": 20,
-						"y": 144,
-						"w": 16,
-						"h": 16
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "misc/star.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 16,
-						"h": 16
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 16,
-						"h": 16
-					},
-					"frame": {
-						"x": 1,
-						"y": 160,
-						"w": 16,
-						"h": 16
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "misc/power.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 12,
-						"h": 12
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 12,
-						"h": 12
-					},
-					"frame": {
-						"x": 1,
-						"y": 178,
-						"w": 12,
-						"h": 12
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "misc/bullet.png",
-					"rotated": false,
-					"trimmed": false,
-					"sourceSize": {
-						"w": 11,
-						"h": 11
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 11,
-						"h": 11
-					},
-					"frame": {
-						"x": 15,
-						"y": 178,
-						"w": 11,
-						"h": 11
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "chars/chicken/walk/down/chicken-0.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 32,
-						"h": 16
-					},
-					"spriteSourceSize": {
-						"x": 10,
-						"y": 2,
-						"w": 12,
-						"h": 14
-					},
-					"frame": {
-						"x": 19,
-						"y": 162,
-						"w": 12,
-						"h": 14
-					},
-					"anchor": {
-						"x": 0.5,
-						"y": 0.5
-					}
-				},
-				{
-					"filename": "chars/chicken/walk/up/chicken-0.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 32,
-						"h": 16
-					},
-					"spriteSourceSize": {
-						"x": 10,
-						"y": 2,
-						"w": 12,
-						"h": 14
-					},
-					"frame": {
-						"x": 38,
-						"y": 146,
-						"w": 12,
-						"h": 14
 					},
 					"anchor": {
 						"x": 0.5,
@@ -649,8 +524,8 @@
 						"h": 13
 					},
 					"frame": {
-						"x": 33,
-						"y": 162,
+						"x": 41,
+						"y": 144,
 						"w": 12,
 						"h": 13
 					},
@@ -674,10 +549,35 @@
 						"h": 13
 					},
 					"frame": {
-						"x": 33,
-						"y": 177,
+						"x": 41,
+						"y": 159,
 						"w": 12,
 						"h": 13
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "chars/chicken/walk/left/chicken-1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 2,
+						"w": 18,
+						"h": 14
+					},
+					"frame": {
+						"x": 21,
+						"y": 167,
+						"w": 18,
+						"h": 14
 					},
 					"anchor": {
 						"x": 0.5,
@@ -699,10 +599,85 @@
 						"h": 13
 					},
 					"frame": {
-						"x": 47,
-						"y": 162,
+						"x": 41,
+						"y": 174,
 						"w": 12,
 						"h": 13
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "chars/chicken/walk/left/chicken-2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 2,
+						"w": 18,
+						"h": 14
+					},
+					"frame": {
+						"x": 21,
+						"y": 183,
+						"w": 18,
+						"h": 14
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "chars/chicken/walk/right/chicken-1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 18,
+						"h": 14
+					},
+					"frame": {
+						"x": 1,
+						"y": 191,
+						"w": 18,
+						"h": 14
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "misc/bullet.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 11,
+						"h": 11
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 11,
+						"h": 11
+					},
+					"frame": {
+						"x": 1,
+						"y": 207,
+						"w": 11,
+						"h": 11
 					},
 					"anchor": {
 						"x": 0.5,
@@ -724,10 +699,60 @@
 						"h": 13
 					},
 					"frame": {
-						"x": 47,
-						"y": 177,
+						"x": 41,
+						"y": 189,
 						"w": 12,
 						"h": 13
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "chars/chicken/walk/right/chicken-2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 32,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 8,
+						"y": 2,
+						"w": 18,
+						"h": 14
+					},
+					"frame": {
+						"x": 21,
+						"y": 199,
+						"w": 18,
+						"h": 14
+					},
+					"anchor": {
+						"x": 0.5,
+						"y": 0.5
+					}
+				},
+				{
+					"filename": "misc/power.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 12,
+						"h": 12
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 12,
+						"h": 12
+					},
+					"frame": {
+						"x": 41,
+						"y": 204,
+						"w": 12,
+						"h": 12
 					},
 					"anchor": {
 						"x": 0.5,
@@ -740,6 +765,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:06199801f70fb3fa3bed15f6dfcb5e4b:dbc59dc9f6da7bff9a6870c1725eb447:cbce6b53f0f49e0bf15173c25c41f876$"
+		"smartupdate": "$TexturePacker:SmartUpdate:2ebbaf23b0b64ec3fdfc8ddaee65d53f:96fae07b055711cb70836fb8acfbd1e1:cbce6b53f0f49e0bf15173c25c41f876$"
 	}
 }

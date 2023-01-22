@@ -59,10 +59,11 @@ export default class MyGame extends Phaser.Scene {
             this.expGems.spawn(x, y);
         } else {
             // can't spawn a regular, do a super one
-            console.log('super spawn 1')
             this.superExpGems.spawn(x, y)
         }
     }
+    
+
 
     /** 
      * @param {Player} player 
@@ -70,7 +71,6 @@ export default class MyGame extends Phaser.Scene {
      * */
     handlePlayerGemCollide(player, gem) {
         player.collectedGem(gem);
-        eventsCenter.emit(UPDATE_EXP, player);
     }
 
     /** 
@@ -78,10 +78,10 @@ export default class MyGame extends Phaser.Scene {
      * @param {ItemCollect} powerup 
      * */
     handlePlayerItemCollectCollide(player, powerup) {
-        this.expGems.getMatching('active',true).forEach(e => {
+        this.expGems.getMatching('active', true).forEach(e => {
             e.startFollow();
         });
-        this.superExpGems.getMatching('active',true).forEach(e => {
+        this.superExpGems.getMatching('active', true).forEach(e => {
             e.startFollow();
         });
         powerup.die();
@@ -107,15 +107,15 @@ export default class MyGame extends Phaser.Scene {
     create() {
 
         // Create a new tilemap from the loaded data
-        const map = this.make.tilemap({ key: 'map2' });
+        const map = this.make.tilemap({ key: 'map',  });
 
         // Add the tileset image to the map
-        const tileset = map.addTilesetImage('basictiles_2', 'basictiles_2', 16, 16, 1, 2);
+        const tileset = map.addTilesetImage('basictiles_2_extruded', 'basictiles_2', 16, 16, 1, 2);
 
 
         // Create the layers specified in the Tiled editor
         const layer = map.createLayer('mainlayer', tileset, 0, 0);
-        const enemyspawn = map.createLayer('enemyspawn', tileset, 0, 0);
+        const enemyspawn = map.createLayer('objects', tileset, 0, 0);
 
         this.map = map;
 
@@ -135,48 +135,47 @@ export default class MyGame extends Phaser.Scene {
         this.itemCollects = new ItemCollectGroup(this, this.player);
         this.cheeses = new CheeseGroup(this, this.player);
 
+        const requireBothActive = (a, b) => a.active && b.active
 
         this.physics.add.collider(
             this.player,
             this.slimes,
-            this.handlePlayerSlimeCollide, (player, slime) => {
-                return slime.active;
-            }, this
+            this.handlePlayerSlimeCollide, requireBothActive, this
         );
 
         this.physics.add.collider(
             this.slimes,
-            this.slimes, () => {}, (a, b) => a.active && b.active
+            requireBothActive,
         )
 
         this.physics.add.overlap(
             this.bullets,
             this.slimes,
-            this.handleBulletSlimeCollide, undefined, this
+            this.handleBulletSlimeCollide, requireBothActive, this
         );
 
         this.physics.add.overlap(
             this.expGems,
             this.player,
-            this.handlePlayerGemCollide, undefined, this
+            this.handlePlayerGemCollide, requireBothActive, this
         );
 
         this.physics.add.overlap(
             this.superExpGems,
             this.player,
-            this.handlePlayerGemCollide, undefined, this
+            this.handlePlayerGemCollide, requireBothActive, this
         );
 
         this.physics.add.overlap(
             this.itemCollects,
             this.player,
-            this.handlePlayerItemCollectCollide, undefined, this
+            this.handlePlayerItemCollectCollide, requireBothActive, this
         );
 
         this.physics.add.overlap(
             this.cheeses,
             this.player,
-            this.handlePlayerCheeseCollide, undefined, this
+            this.handlePlayerCheeseCollide, requireBothActive, this
         );
 
         // TODO, fix this I guess?

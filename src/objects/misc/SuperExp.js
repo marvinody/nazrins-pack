@@ -27,7 +27,6 @@ export class SuperExpGroup extends EnemyGroup {
   /** @param {Player} player */
   spawn(x, y) {
     if (this.canSpawn()) {
-      console.log('super spawn 2')
       super.spawn(x, y)
     } else {
       // can't spawn more, just increase value of one

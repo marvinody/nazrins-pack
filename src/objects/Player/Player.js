@@ -3,6 +3,7 @@ import PlayerController from "./PlayerController";
 import MyGame from '../../scenes/Game'
 import config from '../../config'
 import { ExpGem } from "../misc/Exp";
+import eventsCenter, { SELECTED_LEVEL_UP_REWARD, SHOW_LEVEL_UP, UPDATE_EXP } from "../../scenes/EventsCenter";
 
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
@@ -31,7 +32,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   expNeededForLevel = 10;
 
   /** @type {number} */
-  currentExp = 0;
+  currentExp = 9;
 
   /** @param {Phaser.Scene} scene */
   constructor(scene) {
@@ -95,6 +96,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     })
 
     this.setSize(this.width / 2, this.height / 2)
+
+    eventsCenter.on(SELECTED_LEVEL_UP_REWARD, this.selectLevelUpReward, this);
   }
 
   getCollectionCircle() {
@@ -146,19 +149,43 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     // multipy exp increase here if needed
     this.currentExp += gem.value;
+    eventsCenter.emit(UPDATE_EXP, this);
     this.handleExpGain();
   }
 
   handleExpGain() {
-    while (this.currentExp >= this.expNeededForLevel) {
+    if (this.currentExp >= this.expNeededForLevel) {
       this.currentExp -= this.expNeededForLevel;
       this.levelUp();
     }
   }
 
+  selectLevelUpReward(choices, index) {
+    console.log({ choices, index })
+    this.scene.bullets.levelUp();
+    this.handleExpGain();
+  }
+
   levelUp() {
     this.level += 1;
-    this.scene.bullets.levelUp();
+    // needed to send update again to see the player level up in the UI
+    eventsCenter.emit(UPDATE_EXP, this);
+    this.scene.scene.pause('game');
+    eventsCenter.emit(SHOW_LEVEL_UP, [
+      {
+        text: "GUN [img=gun]\nIncreases rate of fire",
+        selected: true,
+      },
+      {
+        text: "GUN [img=gun]\nIncreases rate of fire",
+      },
+      {
+        text: "GUN [img=gun]\nIncreases rate of fire",
+      },
+      {
+        text: "GUN [img=gun]\nIncreases rate of fire",
+      },
+    ])
   }
 
   preUpdate(time, delta) {
@@ -167,7 +194,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
   heal(amt) {
     this.health += amt;
-    if(this.health > this.maxHealth) {
+    if (this.health > this.maxHealth) {
       this.health = this.maxHealth;
     }
   }
