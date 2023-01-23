@@ -47,7 +47,7 @@ export default class LevelUpUI extends Phaser.GameObjects.Container {
         backgroundColor: '#555',
         fontSize: 20,
         padding: { left: 4, right: 4, top: 4, bottom: 4 },
-        backgroundStrokeColor: choice.selected ? '#ff0' : '#f00'
+        backgroundStrokeColor: '#000'
       });
 
       txt.addImage('gun', {
@@ -95,12 +95,12 @@ export default class LevelUpUI extends Phaser.GameObjects.Container {
 
   handleUpKey() {
     this.currentSelection = (this.currentSelection - 1 + this.choices.length) % this.choices.length;
-    this.updateLevelUpMenu(this);
+    this.updateLevelUpMenu();
   }
 
   handleDownKey() {
     this.currentSelection = (this.currentSelection + 1) % this.choices.length;
-    this.updateLevelUpMenu(this);
+    this.updateLevelUpMenu();
   }
 
   handleEnterKey() {
@@ -116,11 +116,17 @@ export default class LevelUpUI extends Phaser.GameObjects.Container {
       const isSelected = i === this.currentSelection;
       const textChoice = this.textChoices[i];
 
+      textChoice.setVisible(true);
       textChoice.setY(runningYOffset)
       textChoice.setText(choice.text);
-      textChoice.setBackgroundStrokeColor(isSelected ? '#000' : '#f00', 2)
+      textChoice.setBackgroundStrokeColor(isSelected ? '#f00' : '#000', 2)
 
       runningYOffset += textChoice.height + Y_MARGIN_BETWEEN;
+    }
+
+    for( let i = this.choices.length; i < MAX_CHOICES; i++) {
+      const textChoice = this.textChoices[i];
+      textChoice.setVisible(false);
     }
   }
 
