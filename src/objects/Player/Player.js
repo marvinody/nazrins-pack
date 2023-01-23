@@ -97,7 +97,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     this.setSize(this.width / 2, this.height / 2)
 
-    eventsCenter.on(SELECTED_LEVEL_UP_REWARD, this.selectLevelUpReward, this);
+    this.selectLevelUpReward = this.selectLevelUpReward.bind(this);
+
+    eventsCenter.on(SELECTED_LEVEL_UP_REWARD, this.selectLevelUpReward);
   }
 
   getCollectionCircle() {
@@ -161,8 +163,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   selectLevelUpReward(choices, index) {
-    console.log({ choices, index })
-    this.scene.bullets.levelUp();
+    const choice = choices[index];
+    if(choice.weapon === 'GUN') {
+      this.scene.bullets.levelUp(choice)
+    }
     this.handleExpGain();
   }
 
@@ -170,22 +174,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.level += 1;
     // needed to send update again to see the player level up in the UI
     eventsCenter.emit(UPDATE_EXP, this);
-    this.scene.scene.pause('game');
-    eventsCenter.emit(SHOW_LEVEL_UP, [
-      {
-        text: "GUN [img=gun]\nIncreases rate of fire",
-        selected: true,
-      },
-      {
-        text: "GUN [img=gun]\nIncreases rate of fire",
-      },
-      {
-        text: "GUN [img=gun]\nIncreases rate of fire",
-      },
-      {
-        text: "GUN [img=gun]\nIncreases rate of fire",
-      },
-    ])
+    const levelUpChoices = this.scene.bullets.getAvailableLevelups();
+    if(levelUpChoices.length > 0) {
+      this.scene.scene.pause('game'); 
+      eventsCenter.emit(SHOW_LEVEL_UP, levelUpChoices)
+    }
   }
 
   preUpdate(time, delta) {

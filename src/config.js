@@ -31,7 +31,8 @@ export default {
   },
   weapons: {
     bullet: {
-      amount: 3,
+      startingAmount: 3,
+      startingDelay: 2000,
       speed: BASE_SPEED*1.1,
     }
   }
